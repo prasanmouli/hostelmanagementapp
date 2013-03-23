@@ -1,19 +1,19 @@
 <?php
-	include_once("./pages/config.lib.php");
-	
+   include_once("./pages/config.lib.php"); 
+
 	$list = array();
 	$nameList = array();
 	$i=0; $j=0;
-    $stringList="";	
+        $stringList="";	
 
-	$query = "SELECT * FROM userpreferences";
+	$query = "SELECT * FROM userPreferences";
 	$res = mysql_query($query);
 	while($info = mysql_fetch_array($res)){
 		if($info['userId'] == $_SESSION['userId'])
 			$yearOfStudy = $info['year'];
 	}
 	
-	$query = "SELECT * FROM hosteldetails ORDER BY hostelId";
+	$query = "SELECT * FROM hostelDetails ORDER BY hostelId";
 	$res = mysql_query($query);
 	while($info = mysql_fetch_array($res)){
 		if($info['hostelYear'] == 2)	

@@ -1,11 +1,11 @@
 <?php
 	include_once("config.lib.php");
-	
+
 	$hostelId = mysql_real_escape_string($_GET['hostelId']);	
 	$hostelId = 1; 
 	$floorNum = 0;
 	$floorTabs = "";
-	$query = "SELECT floorNo FROM hosteldetails WHERE hostelId='".$hostelId."' ORDER BY floorNo DESC";
+	$query = "SELECT floorNo FROM hostelDetails WHERE hostelId='".$hostelId."' ORDER BY floorNo DESC";
 	$res = mysql_query($query);
 	while($info = mysql_fetch_array($res)){
 		$floorNum = $info['floorNo'];
