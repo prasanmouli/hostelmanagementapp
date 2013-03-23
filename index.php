@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?php
-	include_once("./pages/config.lib.php");
+     include_once("./pages/config.lib.php");
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +19,6 @@
 </script>
 
 <script type="text/javascript">
-
    
 	/*// show loading image
 	$('#loaderImg').show();
@@ -29,23 +28,26 @@
   	$('#loaderImg').hide();
 	$('#floor').empty();
 	});*/
-	
 
-	function hostelSave(){
-		$('#roomMate').empty();
+   function AddEventHandler(){
+        var button = document.getElementById ("hostelSave");	
+        button.addEventListener ("click", function (){
+                $('#hostel').empty();
 		$('.loaderImg').show();
 		$.ajax({
-    		url: "./pages/roomMatePreference.php",
-			success: function(html){
-				$('#roomMate').hide();
-        		$('#roomMate').append(html);
-				$('#roomMate').slideDown();
+    		url: "./pages/hostelList.php",
+		success: function(html){
+		      console.log("adadada"); 
+		      $('#hostel').hide();
+       		      $('#hostel').append(html);
+		      $('#hostel').slideDown();
       		},
       		complete: function(){
-        		$('.loaderImg').hide();
+		      $('.loaderImg').hide();
       		}
-    	});
-	}
+       	});
+	  }, false);
+        }
 	
 	function groupSave(){
 		$('#floor').empty();
@@ -68,21 +70,29 @@
 
 </head>
 
-<body>
+<body onload="AddEventHandler ();" >
 <div>
 <table id="menuBar">
 <tr><td class="menuActive"> Hostel Registrtaion</td> <td> Profile </td> <td> Notifications </td> </tr>
 </table>
 <h1> Your Preferences </h1>
 
-<div class="box"> <h2> HOSTEL </h2>
-<div class="encapsule" align="center">
-<div class="sortableList">
+<div class="box"> <h2> ROOM MATES </h2>
+<div class="encapsule" style="margin-top: -13px;" align="center">
+<img class="loaderImg" style="display: none;" src="./images/ajax-loader.gif" type="gif" />
+<div id="roomMate" class="sortableList">
 <?php
-	include_once("./pages/hostelList.php");
+	  include_once("./pages/roomMatePreference.php");
 ?>
 </div>
-<button id="hostelSave" onclick="hostelSave()"> SAVE </button>
+</div>
+
+<div class="box"> <h2> HOSTEL </h2>
+<div class="encapsule" align="center">
+<div id="hostel"  class="sortableList">
+Confirm hostel preference!
+</div>
+<button id="hostelSave"> SAVE </button>
 </div>
 </div>
 
@@ -90,7 +100,7 @@
 <div class="encapsule" style="margin-top: -13px;" align="center">
 <img class="loaderImg" style="display: none;" src="./images/ajax-loader.gif" type="gif" /> 
 <div id="roomMate" class="sortableList">
-Confirm floor prefernce! 
+Confirm hostel preference! 
 </div>
 </div>
 
@@ -98,7 +108,7 @@ Confirm floor prefernce!
 <div class="encapsule" align="center">
 <img class="loaderImg" style="display: none;" src="./images/ajax-loader.gif" type="gif" /> 
 <div id="floor" class="sortableList">
-Confirm hostel prefernce! 
+Confirm floor preference! 
 </div>
 <button id="floorSave" style="display:none;"> SAVE </button>
 </div>
