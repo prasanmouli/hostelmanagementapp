@@ -24,7 +24,6 @@
         var button1 = document.getElementById ("roomMateSave1");	
         button1.addEventListener ("click", function (){
 	    var roomMate1 = $('#roomMate1').val();
-	    console.log(roomMate1);
                 /* 
 	        $('#hostel').empty();
 		$('.loaderImg').show();
@@ -41,17 +40,28 @@
 		    }
 		  });
 		*/
+	    
+	    if(($('#roomMateSave1').html() == " Send Request ")&&roomMate1)
 	    $.ajax({
 	          url: "./pages/roomMateRequest.php",
 		  data: {'roomMate1': roomMate1},
-		  complete: function(){
-		  
-		  $('#roomMateSave1').css({"color": "blue"});
-		  $('#roomMateSave1').html("Cancel Request!");
-		  //$("#roomMateSave1").attr('value', 'Request Sent!');
-		  
-		}
+		  success: function(){
+		  $('#roomMate1').attr('value', roomMate1);
+		  $('#roomMateSave1').css({"background-color": "#E66140"});
+		  $('#roomMateSave1').html("Cancel Request");
+	     }
             });
+	    else
+	      $.ajax({
+		    url: "./pages/roomMateRequest.php",
+		    data: {'roomMate1': roomMate1},
+		    success: function(html){
+		    console.log(html);
+		    $('#roomMate1').attr('value', '');
+		    $('#roomMateSave1').css({"background-color": "#04A4CC"});
+		    $('#roomMateSave1').html(" Send Request ");
+		  }
+		});
                 
 	  }, false);
 	
@@ -86,12 +96,10 @@
 <h1> Your Preferences </h1>
 
 <div class="box"> <h2> ROOM MATES </h2>
-<div class="encapsule" style="margin-top: -13px;" align="center">
-<div id="roomMate" class="sortableList">
+<div class="encapsule" style="margin-top: -13px;" align="center" id="roomMate">
 <?php
 	  include_once("./pages/roomMatePreference.php");
 ?>
-</div>
 </div>
 </div>
 
