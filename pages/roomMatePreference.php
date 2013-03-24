@@ -14,7 +14,7 @@
 	}
 	
 	for($i=1; $i<=$capacity-1; $i++){
-		$form .= "<form style='float:left;'> <input type='text' id='roomMate".$i."' name='name'/> </form> <button style='margin-top: 15px;' id='roomMateSave".$i."'> Send Request </button>";
+		$form .= "<form style='float:left;'> <input type='text' id='roomMate".$i."' name='name'/> </form> <button style='margin-top: 15px;' id='roomMateSave".$i."'> Send Request </button> <br/> <span id='roomMateMessage".$i."'> </span>";
 		}
 	echo $form;
 ?>

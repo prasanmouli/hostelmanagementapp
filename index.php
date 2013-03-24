@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?php
      include_once("./pages/config.lib.php");
+
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -42,25 +43,35 @@
 		*/
 	    
 	    if(($('#roomMateSave1').html() == " Send Request ")&&roomMate1)
-	    $.ajax({
+	      $.ajax({
 	          url: "./pages/roomMateRequest.php",
+		  type: "POST",
 		  data: {'roomMate1': roomMate1},
-		  success: function(){
-		  $('#roomMate1').attr('value', roomMate1);
-		  $('#roomMateSave1').css({"background-color": "#E66140"});
-		  $('#roomMateSave1').html("Cancel Request");
-	     }
-            });
+		  success: function(html){
+		    if(html!="Invalid"){
+		      $('#roomMateMessage1').empty();
+                      $('#roomMate1').attr('value', roomMate1);
+		      $('#roomMate1').css({"border" : "1px solid #04A4CC"});
+                      $('#roomMateSave1').css({"background-color": "#E66140"});
+                      $('#roomMateSave1').html("Cancel Request");
+		    }
+                    else{
+                      $('#roomMate1').css({"border" : "2px solid #E66140", "color" : "#E66140"});
+                      $('#roomMateMessage1').empty();
+                      $('#roomMateMessage1').append("Invalid Roll Number");
+		    }
+		  }
+              });
 	    else
 	      $.ajax({
-		    url: "./pages/roomMateRequest.php",
-		    data: {'roomMate1': roomMate1},
-		    success: function(html){
-		    console.log(html);
-		    $('#roomMate1').attr('value', '');
-		    $('#roomMateSave1').css({"background-color": "#04A4CC"});
-		    $('#roomMateSave1').html(" Send Request ");
-		  }
+		  /*url: "./pages/roomMateCancelRequest.php",
+		    type: "POST", 
+		    data: {'roomMate1': roomMate1},*/
+		    success: function(){
+		      $('#roomMate1').attr('value', '');
+		      $('#roomMateSave1').css({"background-color": "#04A4CC"});
+		      $('#roomMateSave1').html(" Send Request ");
+		      }
 		});
                 
 	  }, false);
@@ -91,7 +102,7 @@
 <body onload="AddEventHandler();" >
 <div>
 <table id="menuBar">
-<tr><td class="menuActive"> Hostel Registrtaion</td> <td> Profile </td> <td> Notifications </td> </tr>
+<tr><td class="menuActive"> Hostel Registration</td> <td> Profile </td> <td> Notifications </td> </tr>
 </table>
 <h1> Your Preferences </h1>
 
