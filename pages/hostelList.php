@@ -1,5 +1,5 @@
 <?php
-   include_once("./pages/config.lib.php"); 
+   include_once("config.lib.php"); 
 
 	$list = array();
 	$nameList = array();

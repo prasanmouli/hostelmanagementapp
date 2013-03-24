@@ -19,58 +19,66 @@
 </script>
 
 <script type="text/javascript">
-   
-	/*// show loading image
-	$('#loaderImg').show();
-	// main image loaded?
-	$('#floor').load(function(){
-  	// hide/remove the loading image
-  	$('#loaderImg').hide();
-	$('#floor').empty();
-	});*/
 
    function AddEventHandler(){
-        var button = document.getElementById ("hostelSave");	
-        button.addEventListener ("click", function (){
-                $('#hostel').empty();
+        var button1 = document.getElementById ("roomMateSave1");	
+        button1.addEventListener ("click", function (){
+	    var roomMate1 = $('#roomMate1').val();
+	    console.log(roomMate1);
+                /* 
+	        $('#hostel').empty();
 		$('.loaderImg').show();
 		$.ajax({
     		url: "./pages/hostelList.php",
 		success: function(html){
-		      console.log("adadada"); 
 		      $('#hostel').hide();
        		      $('#hostel').append(html);
 		      $('#hostel').slideDown();
-      		},
+		      $('#hostelSave').show();
+		    },
       		complete: function(){
 		      $('.loaderImg').hide();
-      		}
-       	});
+		    }
+		  });
+		*/
+	    $.ajax({
+	          url: "./pages/roomMateRequest.php",
+		  data: {'roomMate1': roomMate1},
+		  complete: function(){
+		  
+		  $('#roomMateSave1').css({"color": "blue"});
+		  $('#roomMateSave1').html("Cancel Request!");
+		  //$("#roomMateSave1").attr('value', 'Request Sent!');
+		  
+		}
+            });
+                
 	  }, false);
-        }
 	
-	function groupSave(){
+        var button2 = document.getElementById("hostelSave");
+        button2.addEventListener("click", function(){
 		$('#floor').empty();
 		$('.loaderImg').show();
 		$.ajax({
 			url: "./pages/displayFloors.php",
       		success: function(html){
-				$('#floor').hide();
+			$('#floor').hide();
         		$('#floor').append(html);
-				$('#floor').slideDown();
-				$('#floorSave').show();
-      		},
+			$('#floor').slideDown();
+			$('#floorSave').show();
+		    },
       		complete: function(){
         		$('.loaderImg').hide();
-      		}
-    	});
-	}
+		    }
+		  });
+         }, false);
+    }
 	
 </script>
 
 </head>
 
-<body onload="AddEventHandler ();" >
+<body onload="AddEventHandler();" >
 <div>
 <table id="menuBar">
 <tr><td class="menuActive"> Hostel Registrtaion</td> <td> Profile </td> <td> Notifications </td> </tr>
@@ -79,28 +87,21 @@
 
 <div class="box"> <h2> ROOM MATES </h2>
 <div class="encapsule" style="margin-top: -13px;" align="center">
-<img class="loaderImg" style="display: none;" src="./images/ajax-loader.gif" type="gif" />
 <div id="roomMate" class="sortableList">
 <?php
 	  include_once("./pages/roomMatePreference.php");
 ?>
 </div>
 </div>
+</div>
 
 <div class="box"> <h2> HOSTEL </h2>
 <div class="encapsule" align="center">
+<img class="loaderImg" style="display: none;" src="./images/ajax-loader.gif" type="gif" />
 <div id="hostel"  class="sortableList">
-Confirm hostel preference!
+Registrations for hostels will begin soon!
 </div>
-<button id="hostelSave"> SAVE </button>
-</div>
-</div>
-
-<div class="box"> <h2> ROOM MATES </h2>
-<div class="encapsule" style="margin-top: -13px;" align="center">
-<img class="loaderImg" style="display: none;" src="./images/ajax-loader.gif" type="gif" /> 
-<div id="roomMate" class="sortableList">
-Confirm hostel preference! 
+<button style="display:none;" id="hostelSave"> SAVE </button>
 </div>
 </div>
 
@@ -108,7 +109,7 @@ Confirm hostel preference!
 <div class="encapsule" align="center">
 <img class="loaderImg" style="display: none;" src="./images/ajax-loader.gif" type="gif" /> 
 <div id="floor" class="sortableList">
-Confirm floor preference! 
+Registrations for floor or group preference will begin soon!  
 </div>
 <button id="floorSave" style="display:none;"> SAVE </button>
 </div>

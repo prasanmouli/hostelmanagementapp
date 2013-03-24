@@ -1,8 +1,9 @@
 <?php
-	include_once("config.lib.php");
+	include_once("./pages/config.lib.php");
 	
-	$hostelId = mysql_real_escape_string($_GET['hostelId']);	
-	$hostelId = 1;
+        $hostelId = mysql_real_escape_string($_GET['hostelId']);	
+	
+        $hostelId = 1;
 	$capacity = 0; 
 
 	$query = "SELECT capacity FROM hostelDetails WHERE hostelId=".$hostelId;
@@ -13,7 +14,7 @@
 	}
 	
 	for($i=1; $i<=$capacity-1; $i++){
-		$form .= "<form style='float:left;'> <input type='text' name='name'/> </form> <button style='margin-top: 15px;' onclick='groupSave()'> Send Request </button>";
+		$form .= "<form style='float:left;'> <input type='text' id='roomMate".$i."' name='name'/> </form> <button style='margin-top: 15px;' id='roomMateSave".$i."'> Send Request </button>";
 		}
 	echo $form;
 ?>
