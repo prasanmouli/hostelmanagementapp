@@ -169,7 +169,9 @@ Registrations for floor or group preference will begin soon!
 <button id="floorSave" style="display:none;"> SAVE </button>
 </div>
 </div>
-
+<div style='margin-left: 50px; width: 120px; float:left;'>
+<input type='search' style='float:left;' name='s'> <button style='float:left; width: 70px;'> Search </button>
+</div>
 </div>
 
 </body>
