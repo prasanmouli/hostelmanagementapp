@@ -141,8 +141,12 @@
 <tr><td class="menuActive"> Hostel Registration</td> <td> Profile </td> <td> <a href="./notifications.php"> Notifications </a> </td> </tr>
 </table>
 <h1> Your Preferences </h1>
+<<<<<<< HEAD
 
 <div style="float:left;">
+=======
+<div style="float:left">
+>>>>>>> 459b169cdaefe3500e26711eebd13c703eedec25
 <div class="box"> <h2> ROOM MATES </h2>
 <div class="encapsule" style="margin-top: -13px;" align="center" id="roomMate">
 <?php
@@ -171,9 +175,14 @@ Registrations for floor or group preference will begin soon!
 </div>
 </div>
 </div>
+<<<<<<< HEAD
 
 <div style='margin-left: 50px; width: 120px; float:left;'>
 <input type='search' style='float:left;' name='s'> <button style='float:left; width: 70px;'> Search </button>
+=======
+<div style='margin-left: 50px; width: 400px; float:left;'>
+<input type='search' name='s' /> <button style=' width: 70px;'> Search </button>
+>>>>>>> 459b169cdaefe3500e26711eebd13c703eedec25
 </div>
 </div>
 

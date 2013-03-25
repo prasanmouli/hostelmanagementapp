@@ -263,3 +263,9 @@ input:focus{
 #notifications .reject{
     background-color: #E66140;
 }
+
+a, a:visited {
+    color: inherit;
+    padding: 10px 50px;
+    text-decoration: none;
+}

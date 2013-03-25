@@ -3,7 +3,7 @@ include('config.lib.php');
 $searchq = $_GET['name'];
 echo $searchq;
 //$searchq = "107111027";
-$getname_sql = 'SELECT userName FROM userDetails WHERE rollNo LIKE ".$searchq."%" ;
+$getname_sql = "SELECT userName FROM userDetails WHERE rollNo LIKE '".$searchq."%'";
 
 //$getName_sql = 'SELECT * FROM USER
 //WHERE name LIKE "%' . $searchq .'%"

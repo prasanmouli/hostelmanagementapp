@@ -2,9 +2,9 @@
     include_once("config.lib.php");
  
     $userId = $_SESSION['userId'];
-    $userId = 100001;
+    $userId = '100001';
     $checkId = mysql_real_escape_string($_POST['roomMate1']);
-    if($checkId){
+
       $query_init = "SELECT userId FROM userDetails WHERE rollNo = '".$checkId."'";
       $info = mysql_fetch_array(mysql_query($query_init));
       if($info){
@@ -18,7 +18,4 @@
       }
       else
         echo "Invalid"; 
-    }
-    else
-      echo "Invalid";
 ?>
