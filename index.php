@@ -51,7 +51,7 @@
 		    if(html!="Invalid"){
 		      $('#roomMateMessage1').empty();
                       $('#roomMate1').attr('value', roomMate1);
-		      $('#roomMate1').css({"border" : "1px solid #04A4CC"});
+		      $('#roomMate1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
                       $('#roomMateSave1').css({"background-color": "#E66140"});
                       $('#roomMateSave1').html("Cancel Request");
 		    }
@@ -64,9 +64,9 @@
               });
 	    else
 	      $.ajax({
-		  /*url: "./pages/roomMateCancelRequest.php",
+		    url: "./pages/roomMateCancelRequest.php",
 		    type: "POST", 
-		    data: {'roomMate1': roomMate1},*/
+		    data: {'roomMate1': roomMate1},
 		    success: function(){
 		      $('#roomMate1').attr('value', '');
 		      $('#roomMateSave1').css({"background-color": "#04A4CC"});
