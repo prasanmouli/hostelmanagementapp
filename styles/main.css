@@ -242,3 +242,24 @@ input:focus{
     -moz-box-shadow: 0 0 3px 0 #0972A5;
     box-shadow: 0 0 3px 0 #0972A5;
 }
+
+#notifications ul{
+    width: 800px;
+    list-style: none;
+}
+
+#notifications li{
+    line-height: 40px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border: 1px solid #04a4cc;
+    border-radius: 5px;
+}
+
+#notifications button{
+    width: 70px;
+}
+
+#notifications .reject{
+    background-color: #E66140;
+}
