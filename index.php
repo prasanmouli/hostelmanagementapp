@@ -106,6 +106,8 @@
 </table>
 <h1> Your Preferences </h1>
 
+<div style='width: 600px; float:left;'>
+
 <div class="box"> <h2> ROOM MATES </h2>
 <div class="encapsule" style="margin-top: -13px;" align="center" id="roomMate">
 <?php
@@ -132,6 +134,11 @@ Registrations for floor or group preference will begin soon!
 </div>
 <button id="floorSave" style="display:none;"> SAVE </button>
 </div>
+</div>
+</div>
+
+<div style='margin-left: 50px; width: 120px; float:left;'>
+<input type='search' style='float:left;' name='s'> <button style='float:left; width: 70px;'> Search </button>
 </div>
 
 </div>
