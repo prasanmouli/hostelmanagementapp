@@ -20,11 +20,24 @@
 </script>
 
 <script type="text/javascript">
+  
+ function AddEventHandler(){
+        var button1 = document.getElementById ("roomMateSave1");
+	var button3 = document.getElementById("roomMateSave2");
+	$.ajax({
+	success : function(){
+		button3.style.visibility='hidden';
+        	if($('#roomMateSave2').html()==" Send Request "){
+			$('#roomMateMessage2').append("Confirm RoomMate 1");
+		}
+		else{
+			button3.style.visibility='visible';
+			}
+		}
 
-   function AddEventHandler(){
-        var button1 = document.getElementById ("roomMateSave1");	
-        button1.addEventListener ("click", function (){
-	    var roomMate1 = $('#roomMate1').val();
+	});
+	button1.addEventListener ("click", function (){
+		var roomMate1 = $('#roomMate1').val();
                 /* 
 	        $('#hostel').empty();
 		$('.loaderImg').show();
@@ -41,14 +54,17 @@
 		    }
 		  });
 		*/
-	    
-	    if(($('#roomMateSave1').html() == " Send Request ")&&roomMate1)
-	      $.ajax({
+			  
+	    if(($('#roomMateSave1').html() == " Send Request ")){ 
+	      if(roomMate1)
+		$.ajax({
 	          url: "./pages/roomMateRequest.php",
 		  type: "POST",
 		  data: {'roomMate1': roomMate1},
 		  success: function(html){
 		    if(html!="Invalid"){
+			button3.style.visibility='visible';
+			$('#roomMateMessage2').empty();
 		      $('#roomMateMessage1').empty();
                       $('#roomMate1').attr('value', roomMate1);
 		      $('#roomMate1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
@@ -62,7 +78,12 @@
 		    }
 		  }
               });
-	    else
+		else{
+			     $('#roomMateMessage1').empty();
+                      $('#roomMateMessage1').append("Enter Roll Number");
+		}
+	}
+	    else{
 	      $.ajax({
 		    url: "./pages/roomMateCancelRequest.php",
 		    type: "POST", 
@@ -73,9 +94,24 @@
 		      $('#roomMateSave1').html(" Send Request ");
 		      }
 		});
-                
+		 button3.style.visibility='hidden';
+                        $('#roomMateMessage2').append("Confirm RoomMate 1");
+                }
+              
 	  }, false);
-	
+	 $.ajax({
+        url : './pageseckRroomMateApproval.php' ,
+        type : "GET" ,
+        success:function(data){
+                if(data!="0"){
+                        $('#roomMate1').val(data);
+                  $('#roomMateSave1').css({"background-color": "#E66140"});
+                      $('#roomMateSave1').html(" Cancel Request ");
+
+                        }
+                }
+        });
+
         var button2 = document.getElementById("hostelSave");
         button2.addEventListener("click", function(){
 		$('#floor').empty();
@@ -106,8 +142,6 @@
 </table>
 <h1> Your Preferences </h1>
 
-<div style='width: 600px; float:left;'>
-
 <div class="box"> <h2> ROOM MATES </h2>
 <div class="encapsule" style="margin-top: -13px;" align="center" id="roomMate">
 <?php
@@ -135,12 +169,9 @@ Registrations for floor or group preference will begin soon!
 <button id="floorSave" style="display:none;"> SAVE </button>
 </div>
 </div>
-</div>
-
 <div style='margin-left: 50px; width: 120px; float:left;'>
 <input type='search' style='float:left;' name='s'> <button style='float:left; width: 70px;'> Search </button>
 </div>
-
 </div>
 
 </body>
