@@ -303,15 +303,18 @@ Registrations for floor or group preference will begin soon!
 <button id="floorSave" style="display:none;"> SAVE </button>
 </div>
 </div>
-<div style='margin-left: 50px; width: 400px; float:left;'>
+</div>
+
+<div style='margin: 30px 0 0 60px; width: 400px; float:left;'>
 <form id="searchForm" name="searchForm" method="POST">
 <div class = "searchInput">
-<input name="searchq" type="text" id="searchq" size="30"/>
+   <input name="searchq" type="search" id="searchq" size="30"/>
 </div>
 </form>
 <div id="msg">Type something into the input field</div>
 <div id="search-result"></div>
 </div>
+
 </div>
 </body>
 </html>

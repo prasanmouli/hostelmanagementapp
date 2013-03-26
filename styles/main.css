@@ -233,6 +233,18 @@ input{
 
 }
 
+input[type=search] {
+    color: #0972A5;
+    padding-left: 25px;
+    text-align: left;
+    cursor: pointer;
+    height: 27px;
+    background: url(../images/search.jpg) top left no-repeat;
+    letter-spacing: 1px;
+    text-shadow: 0 0 1px black;
+}
+
+
 input:focus{
     webkit-transition: all 0.4s ease;
     -moz-transition:    all 0.4s ease;

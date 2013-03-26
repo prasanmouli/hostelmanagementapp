@@ -41,4 +41,3 @@ while($info = mysql_fetch_array($res)){
 </div>
 </body>
 </html>
-
