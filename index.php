@@ -4,7 +4,7 @@
 
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+</head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Hostel Management</title>
 
@@ -12,44 +12,70 @@
 <script type="text/javascript" src="./scripts/jquery.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery-ui.min.js"></script>
 <script type="text/javscript">
+
 /* ---------------------------- */
 /* XMLHTTPRequest Enable */
 /* ---------------------------- */
+/*
 function createObject() {
-    var request_type;
-    var browser = navigator.appName;
-    if(browser == "Microsoft Internet Explorer"){
-        request_type = new ActiveXObject("Microsoft.XMLHTTP");
-    } else {
-        request_type = new XMLHttpRequest();
-    }
-    return request_type;
+var request_type;
+var browser = navigator.appName;
+if(browser == "Microsoft Internet Explorer"){
+request_type = new ActiveXObject("Microsoft.XMLHTTP");
+} else {
+request_type = new XMLHttpRequest();
 }
-
-var http = createObject();
+return request_type;
+}
+*/
+//var http = createObject();
 
 /* -------------------------- */
 /* SEARCH */
 /* -------------------------- */
+/*
 function searchNameq() {
-console.log("12312");
-    searchq = encodeURI(document.getElementById('searchq').value);
-    document.getElementById('msg').style.display = "block";
-    document.getElementById('msg').innerHTML = "Searching for <strong>" + searchq+"";
+searchq = encodeURI(document.getElementById('searchq').value);
+document.getElementById('msg').style.display = "block";
+document.getElementById('msg').innerHTML = "Searching for <strong>" + searchq+"</strong>";
 // Set te random number to add to URL request
-     nocache = Math.random();
-         http.open('get', 'dbconnection.php?name='+searchq+'&nocache = '+nocache);
-             http.onreadystatechange = searchNameqReply;
-                 http.send(null);
-                 }
-                 function searchNameqReply() {
-                     if(http.readyState == 4){
-                             var response = http.responseText;
-                                     response = response.replace(searchq, "");
-console.log(response);                                            
- document.getElementById('search-result').innerHTML = response;
-                                                 }
-                                                 }
+nocache = Math.random();
+http.open('get', './pages/dbconnection.php?name='+searchq+'');
+http.onreadystatechange = searchNameqReply;
+http.send(null);
+}
+function searchNameqReply() {
+if(http.readyState == 4){
+var response = http.responseText;
+//response = response.replace(searchq, "");
+document.getElementById('search-result').innerHTML = response;
+}
+}
+*/ 
+/*
+var searchBar = document.getElementById("searchq");
+searchBar.addEventListener("keyup",function(){ 
+searchq =document.getElementById('searchq').value;
+document.getElementById('msg').style.display = "block";
+document.getElementById('msg').innerHTML = "Searching for <strong>" + searchq+"</strong>";
+    
+$.ajax({
+	url : './pages/dbconnection.php',
+	type : 'get' , 
+	data : {'name' : searchq},
+	success : function(data){
+			var response = data;
+			response = response.replace(searchq, "");
+			document.getElementById('search-result').innerHTML = response;
+					
+		}
+	});         
+               
+},false);
+        */    
+               
+                   
+                            
 </script>
 <script>
   $(function() {
@@ -61,7 +87,37 @@ console.log(response);
 <script type="text/javascript">
   
  function AddEventHandler(){
-        var button1 = document.getElementById ("roomMateSave1");
+  
+
+
+	var searchBar = document.getElementById("searchq");
+	searchBar.addEventListener("keyup",function(){ 
+	searchq =document.getElementById('searchq').value;
+	document.getElementById('msg').style.display = "block";
+	document.getElementById('msg').innerHTML = "Searching for <strong>" + searchq+"</strong>";
+    
+	$.ajax({
+        	url : './pages/dbconnection.php',
+	        type : 'get' , 
+        	data : {'name' : searchq},
+	        success : function(data){
+				if(data==""){
+					$('#msg').empty();
+				        document.getElementById('msg').innerHTML = "Type something into the input field";
+
+				}
+        	                var response = data;
+                	        response = response.replace(searchq, "");
+                        	document.getElementById('search-result').innerHTML = response;
+                                        
+	                }
+	        });         
+               
+	},false);
+            
+              
+
+      var button1 = document.getElementById ("roomMateSave1");
 	var button3 = document.getElementById("roomMateSave2");
 	$.ajax({
 	success : function(){
@@ -139,7 +195,7 @@ console.log(response);
               
 	  }, false);
 	 $.ajax({
-        url : './pageseckRroomMateApproval.php' ,
+        url : './pages/checkRoomMateApproval.php' ,
         type : "GET" ,
         success:function(data){
                 if(data!="0"){
@@ -211,8 +267,9 @@ Registrations for floor or group preference will begin soon!
 </div>
 <div style='margin-left: 50px; width: 400px; float:left;'>
 <form id="searchForm" name="searchForm" method="POST">
-<input name="searchq" type="text" id="searchq" size="30" onkeyup="searchNameq()"/>
-<input type="button" name="submitSearch" id="submitSearch" value="Search" onclick="searchNameq()"/>
+<div class = "searchInput">
+<input name="searchq" type="text" id="searchq" size="30"/>
+</div>
 </form>
 <div id="msg">Type something into the input field</div>
 <div id="search-result"></div>
