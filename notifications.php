@@ -9,13 +9,31 @@ include_once("./pages/config.lib.php");
 
 <link href="./styles/main.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="./scripts/jquery.min.js"></script>
+<script type="text/javascript">
+function AddEventHandler(){
+	/*var button1 = document.getElementById("accept");
+	button1.addEventListener ("click", function (){
+		$.ajax({
+        	url : './pages/requestApproval.php',
+	        type : 'get' , 
+        	data : {'name' : searchq},
+	        success : function(data){
+				if(data==""){
+					$('#msg').empty();
+				        document.getElementById('msg').innerHTML = "Type something into the input field";
+				        }                                        
+	            }       
+			});
+	}, false);	*/
+}
+</script>
 </head>
 
-<body>
+<body onload="AddEventHandler();">
 <div>
 
 <table id="menuBar">
-<tr><td> <a href="./"> Hostel Registration </a> </td> <td> Profile </td> <td class="menuActive"> Notifications </td> </tr>
+<tr> <td> <a href="./"> Hostel Registration </a> </td> <td> Profile </td> <td class="menuActive"> Notifications </td> </tr>
 </table>
 
 <div id="notifications">

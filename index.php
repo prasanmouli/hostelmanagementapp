@@ -132,7 +132,7 @@ $.ajax({
 	searchBar.addEventListener("keyup",function(){ 
 	searchq =document.getElementById('searchq').value;
 	document.getElementById('msg').style.display = "block";
-	document.getElementById('msg').innerHTML = "Searching for <strong>" + searchq+"</strong>";
+	document.getElementById('msg').innerHTML = "Searching for <strong>"+searchq+"</strong>";
     
 	$.ajax({
         	url : './pages/dbconnection.php',
@@ -148,14 +148,14 @@ $.ajax({
                 	        response = response.replace(searchq, "");
                         	document.getElementById('search-result').innerHTML = response;
                                         
-	                }
+	                }       
 	        });         
                
 	},false);
             
               
 
-      var button1 = document.getElementById ("roomMateSave1");
+    var button1 = document.getElementById ("roomMateSave1");
 	var button3 = document.getElementById("roomMateSave2");
 	$.ajax({
 	success : function(){
@@ -178,7 +178,7 @@ $.ajax({
     		url: "./pages/hostelList.php",
 		success: function(html){
 		      $('#hostel').hide();
-       		      $('#hostel').append(html);
+       		  $('#hostel').append(html);
 		      $('#hostel').slideDown();
 		      $('#hostelSave').show();
 		    },
@@ -305,12 +305,11 @@ Registrations for floor or group preference will begin soon!
 </div>
 </div>
 
-<div style='margin: 30px 0 0 60px; width: 400px; float:left;'>
-<form id="searchForm" name="searchForm" method="POST">
-<div class = "searchInput">
+<div id="searchDiv" align="center">
+<h2> Search </h2>
+<div class="searchInput" align="center">
    <input name="searchq" type="search" id="searchq" size="30"/>
 </div>
-</form>
 <div id="msg">Type something into the input field</div>
 <div id="search-result"></div>
 </div>
