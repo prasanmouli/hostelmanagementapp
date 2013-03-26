@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
 <?php
      include_once("./pages/config.lib.php");
 
@@ -11,7 +11,46 @@
 <link href="./styles/main.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="./scripts/jquery.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery-ui.min.js"></script>
+<script type="text/javscript">
+/* ---------------------------- */
+/* XMLHTTPRequest Enable */
+/* ---------------------------- */
+function createObject() {
+    var request_type;
+    var browser = navigator.appName;
+    if(browser == "Microsoft Internet Explorer"){
+        request_type = new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        request_type = new XMLHttpRequest();
+    }
+    return request_type;
+}
 
+var http = createObject();
+
+/* -------------------------- */
+/* SEARCH */
+/* -------------------------- */
+function searchNameq() {
+console.log("12312");
+    searchq = encodeURI(document.getElementById('searchq').value);
+    document.getElementById('msg').style.display = "block";
+    document.getElementById('msg').innerHTML = "Searching for <strong>" + searchq+"";
+// Set te random number to add to URL request
+     nocache = Math.random();
+         http.open('get', 'dbconnection.php?name='+searchq+'&nocache = '+nocache);
+             http.onreadystatechange = searchNameqReply;
+                 http.send(null);
+                 }
+                 function searchNameqReply() {
+                     if(http.readyState == 4){
+                             var response = http.responseText;
+                                     response = response.replace(searchq, "");
+console.log(response);                                            
+ document.getElementById('search-result').innerHTML = response;
+                                                 }
+                                                 }
+</script>
 <script>
   $(function() {
     $( ".sortableList" ).sortable({placeholder: "ui-state-highlight"});
@@ -141,12 +180,8 @@
 <tr><td class="menuActive"> Hostel Registration</td> <td> Profile </td> <td> <a href="./notifications.php"> Notifications </a> </td> </tr>
 </table>
 <h1> Your Preferences </h1>
-<<<<<<< HEAD
 
 <div style="float:left;">
-=======
-<div style="float:left">
->>>>>>> 459b169cdaefe3500e26711eebd13c703eedec25
 <div class="box"> <h2> ROOM MATES </h2>
 <div class="encapsule" style="margin-top: -13px;" align="center" id="roomMate">
 <?php
@@ -174,17 +209,14 @@ Registrations for floor or group preference will begin soon!
 <button id="floorSave" style="display:none;"> SAVE </button>
 </div>
 </div>
-</div>
-<<<<<<< HEAD
-
-<div style='margin-left: 50px; width: 120px; float:left;'>
-<input type='search' style='float:left;' name='s'> <button style='float:left; width: 70px;'> Search </button>
-=======
 <div style='margin-left: 50px; width: 400px; float:left;'>
-<input type='search' name='s' /> <button style=' width: 70px;'> Search </button>
->>>>>>> 459b169cdaefe3500e26711eebd13c703eedec25
+<form id="searchForm" name="searchForm" method="POST">
+<input name="searchq" type="text" id="searchq" size="30" onkeyup="searchNameq()"/>
+<input type="button" name="submitSearch" id="submitSearch" value="Search" onclick="searchNameq()"/>
+</form>
+<div id="msg">Type something into the input field</div>
+<div id="search-result"></div>
 </div>
 </div>
-
 </body>
 </html>
