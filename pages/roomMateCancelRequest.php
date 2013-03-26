@@ -2,7 +2,7 @@
     include_once("config.lib.php");
  
     $userId = $_SESSION['userId'];
-    $userId = '100001';
+    $userId = '100000';
     $checkId = mysql_real_escape_string($_POST['roomMate1']);
 
       $query_init = "SELECT userId FROM userDetails WHERE rollNo = '".$checkId."'";
@@ -12,7 +12,7 @@
         mysql_query($query);
         //date_default_timezone_set('Asia/Calcutta');
         //$mysqltime = date ("Y-m-d H:i:s");
-        $query = "UPDATE requests SET requestTime = 'NULL' WHERE userId = ".$userId;
+        $query = "DELETE FROM requests WHERE userId = ".$userId . " AND roomMateRequestId = ".$info['userId'];
         mysql_query($query);
         //echo date("l jS of F g:i A.", time());   
       }
