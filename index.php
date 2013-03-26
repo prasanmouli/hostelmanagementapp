@@ -86,10 +86,48 @@ $.ajax({
 
 <script type="text/javascript">
   
+$.ajax({
+        url : './pages/checkRoomMateRequest.php' ,
+        type : 'get' ,
+        success : function(data){
+                        
+                        if(data=="0"){
+                        console.log(data);
+                      $('#roomMateSave1').css({"background-color": "#04A4CC"});
+
+                                $('#roomMateSave1').empty();    
+                                   $('#roomMateSave1').html(" Send Request ");
+
+                                }
+                        else
+                                 $('#roomMate1').val(data);
+
+                        
+                }
+        }); 
+
  function AddEventHandler(){
-  
+/* 	$.ajax({
+	url : './pages/checkRoomMateRequest.php' ,
+	type : 'get' ,
+	success : function(data){
+			
+			if(data=="0"){
+			console.log(data);
+                      $('#roomMateSave1').css({"background-color": "#04A4CC"});
 
+				$('#roomMateSave1').empty();	
+				   $('#roomMateSave1').html(" Send Request ");
 
+				}
+			else
+				 $('#roomMate1').val(data);
+
+			
+		}
+	}); 
+
+*/
 	var searchBar = document.getElementById("searchq");
 	searchBar.addEventListener("keyup",function(){ 
 	searchq =document.getElementById('searchq').value;
