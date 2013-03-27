@@ -201,7 +201,7 @@ $.ajax({
 		      $('#roomMateMessage1').empty();
                       $('#roomMate1').attr('value', roomMate1);
 		      $('#roomMate1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
-                      $('#roomMateSave1').css({"background-color": "#E66140"});
+                      $('#roomMateSave1').css({"border-color":"#E66140" , "background-color": "#E66140"});
                       $('#roomMateSave1').html("Cancel Request");
 		    }
                     else{
@@ -223,7 +223,7 @@ $.ajax({
 		    data: {'roomMate1': roomMate1},
 		    success: function(){
 		      $('#roomMate1').attr('value', '');
-		      $('#roomMateSave1').css({"background-color": "#04A4CC"});
+		      $('#roomMateSave1').css({"border-color":"#04A4CC" , "background-color": "#04A4CC"});
 		      $('#roomMateSave1').html(" Send Request ");
 		      }
 		});
@@ -238,7 +238,7 @@ $.ajax({
         success:function(data){
                 if(data!="0"){
                         $('#roomMate1').val(data);
-                  $('#roomMateSave1').css({"background-color": "#E66140"});
+                  $('#roomMateSave1').css({"border-color":"#E66140" , "background-color": "#E66140"});
                       $('#roomMateSave1').html(" Cancel Request ");
 
                         }

@@ -44,13 +44,14 @@ $userId = '100001';
 $query = "SELECT * FROM requests WHERE userId = ".$userId." ORDER BY requestTime DESC";
 $res = mysql_query($query);
 while($info = mysql_fetch_array($res)){
+
   $query1 = "SELECT * FROM userDetails WHERE userId = ".$info['roomMateRequestId'];
   $res1 = mysql_query($query1);
   $info1 = mysql_fetch_array($res1);
   $requestName = $info1['userName'];
   $requestRollNo = $info1['rollNo'];
-  
-  echo "<li> <strong>".$requestName."</strong>(".$requestRollNo.") wants to be your room mate.".$info['requestTime']." <button id='accept'> Accept </button> <button id='rejectasd' class='reject'> Reject  </button></li>";
+  $requestTime = strtotime($info['requestTime']);
+  echo "<li> <strong>".$requestName."</strong>(".$requestRollNo.") wants to be your room mate.".$requestTime." <button id='accept'> Accept </button> <button id='rejectasd' class='reject'> Reject  </button></li>";
 }                                                                                                
 ?>
 </ul>
