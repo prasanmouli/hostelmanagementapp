@@ -33,6 +33,7 @@ function searchNameq() {
 function searchNameqReply() {
     if(http.readyState == 4){
         var response = http.responseText;
+	response = response.replace(searchq, "");
         document.getElementById('search-result').innerHTML = response;
     }
 }    

@@ -138,6 +138,9 @@ $.ajax({
 
     var button1 = document.getElementById ("roomMateSave1");
 	var button3 = document.getElementById("roomMateSave2");
+	var button4 = document.getElementById("grp1");
+
+
 	$.ajax({
 	success : function(){
 		button3.style.visibility='hidden';
@@ -150,9 +153,15 @@ $.ajax({
 		}
 
 	});
+
 	button1.addEventListener ("click", function (){
 		var roomMate1 = $('#roomMate1').val();
+<<<<<<< HEAD
 			  console.log(roomMate1);
+=======
+                
+			  
+>>>>>>> da677d25b7374bc6d20b8bc306f76096d0a4f156
 	    if(($('#roomMateSave1').html() == " Send Request ")){ 
 	      if(roomMate1)
 		$.ajax({
@@ -227,6 +236,43 @@ $.ajax({
 		    }
 		  });
          }, false);
+
+
+	button4.addEventListener ("click", function (){
+	    var group1 = $('#grp').val();
+
+              if(group1)
+                $.ajax({
+                  url: "./pages/disproom.php",
+		      type: "POST",
+		      data: {'group1': group1},
+		      success: function(html){
+		      if(html!="Invalid"){
+			// button3.style.visibility='visible';
+                        $('#groupsearch').append(html);
+
+			$('#grp').attr('value', group1);
+			$('#grp1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
+			$('#grp1').css({"border-color":"#E66140" , "background-color": "#E66140"});
+		       
+		      }
+		      else{
+			alert('tygvuyhbubu');
+			//$('#roomMate1').css({"border" : "2px solid #E66140", "color" : "#E66140"});
+			//$('#roomMateMessage1').empty();
+			//$('#roomMateMessage1').append("Invalid Roll Number");
+		      }
+		    }
+		  });
+	      else{
+		$('#roomMateMessage1').empty();
+		$('#roomMateMessage1').append("Enter Roll Number");
+	      }
+	  }, false );
+
+
+
+
     }
 	
 </script>
@@ -280,5 +326,11 @@ Registrations for floor or group preference will begin soon!
 </div>
 
 </div>
+
+<div id = "groupsearch">
+<input type="text" id = "grp" />
+<button id ="grp1"> dfgdf </button>
+</div>
+
 </body>
 </html>
