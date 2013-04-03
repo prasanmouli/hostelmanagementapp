@@ -2,10 +2,10 @@
 /* DEFINITIONS to connect to the database */
 
 define("SERVER","localhost");
-define("USERNAME","");
-define("SERVER_PASSWORD","");
+define("USERNAME","Hostel2013");
+define("SERVER_PASSWORD","Hajime123");
 //name of the database.
-define("DATABASE","");
+define("DATABASE","Hostel2013");
 
 include_once("connection.php");
 
