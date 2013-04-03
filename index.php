@@ -84,30 +84,11 @@ $.ajax({
   });	
 </script>
 
-<script type="text/javascript">
-  
-$.ajax({
-        url : './pages/checkRoomMateRequest.php' ,
-        type : 'get' ,
-        success : function(data){
-                        
-                        if(data=="0"){
-                        console.log(data);
-                      $('#roomMateSave1').css({"background-color": "#04A4CC"});
-
-                                $('#roomMateSave1').empty();    
-                                   $('#roomMateSave1').html(" Send Request ");
-
-                                }
-                        else
-                                 $('#roomMate1').val(data);
-
-                        
-                }
-        }); 
+<script type="text/javascript">                    
 
  function AddEventHandler(){
-/* 	$.ajax({
+ 	
+	$.ajax({
 	url : './pages/checkRoomMateRequest.php' ,
 	type : 'get' ,
 	success : function(data){
@@ -127,7 +108,7 @@ $.ajax({
 		}
 	}); 
 
-*/
+
 	var searchBar = document.getElementById("searchq");
 	searchBar.addEventListener("keyup",function(){ 
 	searchq =document.getElementById('searchq').value;
@@ -171,23 +152,7 @@ $.ajax({
 	});
 	button1.addEventListener ("click", function (){
 		var roomMate1 = $('#roomMate1').val();
-                /* 
-	        $('#hostel').empty();
-		$('.loaderImg').show();
-		$.ajax({
-    		url: "./pages/hostelList.php",
-		success: function(html){
-		      $('#hostel').hide();
-       		  $('#hostel').append(html);
-		      $('#hostel').slideDown();
-		      $('#hostelSave').show();
-		    },
-      		complete: function(){
-		      $('.loaderImg').hide();
-		    }
-		  });
-		*/
-			  
+			  console.log(roomMate1);
 	    if(($('#roomMateSave1').html() == " Send Request ")){ 
 	      if(roomMate1)
 		$.ajax({
