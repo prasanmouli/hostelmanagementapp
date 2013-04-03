@@ -1,19 +1,16 @@
 <?php
 include_once "config.lib.php";
 $data ="";
-//$userid = mysql_real_escape_string($_SESSION['userId']);
 $userid="100000";
-$query="SELECT * FROM requests WHERE userId=".$userid." & accepted!=2";
+$approvalId = mysql_real_escape_string($_POST['approvalId']);
+$query="SELECT * FROM requests WHERE roomMateRequestId =".$userid." AND userId = ".$approvalId;//." & accepted=''";
 $res=mysql_query($query);
 while($info=mysql_fetch_array($res)){
 	if($info['accepted']!=1){
-		$query1="SELECT * FROM userDetails WHERE userId=".$info['roommateRequestId'];
-		$res1=mysql_query($query1);
-		$info1=mysql_fetch_array($res1);
-		$data=$info1['rollNo'];
+	  $query1="UPDATE requests SET accepted='1' WHERE roomMateRequestId =".$userid." AND userId = ".$approvalId;
+	  $res1=mysql_query($query1);
+	  $data="Success";
 	}
-	else
-		$data="0";
 	}
 echo $data;
 ?>
