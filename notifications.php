@@ -10,22 +10,19 @@ include_once("./pages/config.lib.php");
 <link href="./styles/main.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="./scripts/jquery.min.js"></script>
 <script type="text/javascript">
-function AddEventHandler(){
-   /*   var button1 = document.getElementById("accept");
-   button1.addEventListener ("click", function (){
+function requestApproval(roomMateId){
    $.ajax({
-       	 url : './pages/requestApproval.php',
-         type : 'get' , 
-	 data : {'name' : searchq},
+       	 url : './pages/checkRoomMateApproval.php',
+         type : 'POST' , 
+	 data : {'approvalId' : roomMateId},
 	 success : function(data){
-	 if(data==""){
-	   $('#').
- 	   $('#msg').empty();
-	   document.getElementById('msg').innerHTML = "Type something into the input field";
+	 if(data=="Success"){
+	   $('#accept').remove();
+	   $('#reject1').remove();
+	   $('#approved').append("Approved!");
 	 }                                        
 	 }       
   });
-  }, false);	*/
 }
 </script>
 </head>
@@ -41,17 +38,17 @@ function AddEventHandler(){
 <ul>
 <?php
 $userId = mysql_real_escape_string($_POST['userId']);
-$userId = '100001';
-$query = "SELECT * FROM requests WHERE userId = ".$userId." ORDER BY requestTime DESC";
+$userId = '100000';
+$query = "SELECT * FROM requests WHERE roomMateRequestId = ".$userId." ORDER BY requestTime DESC";
 $res = mysql_query($query);
 while($info = mysql_fetch_array($res)){
-  $query1 = "SELECT * FROM userDetails WHERE userId = ".$info['roomMateRequestId'];
+  $requestTime = $info['requestTime'];
+  $query1 = "SELECT * FROM userDetails WHERE userId = ".$info['userId'];
   $res1 = mysql_query($query1);
   $info1 = mysql_fetch_array($res1);
-  $requestName = $info1['userName'];
   $requestRollNo = $info1['rollNo'];
-  $requestTime = strtotime($info['requestTime']);
-  echo "<li> <strong>".$requestName." </strong>(".$requestRollNo.") wants to be your room mate.".$requestTime." <button id='accept+".$requestRollNo."'> Accept </button> <button id='rejectasd' class='reject'> Reject  </button> </li>";
+  //$requestTime = $info['requestTime'];
+  echo "<li> <strong>".$info1['userName']." </strong>(".$info1['rollNo'].") wants to be your room mate.".$requestTime." <button id='accept' onclick='requestApproval(".$info1['userId'].")'> Accept </button> <button id='reject1' class='reject'> Reject  </button> <span id='approved'> </span> </li>";
 }
 ?>
 </ul>

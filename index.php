@@ -203,6 +203,34 @@ if(1){
             
 //Search Ends  
 
+//Group search starts
+                                                                                                                              
+	var grpsearchBar = document.getElementById("grp");
+        grpsearchBar.addEventListener("keyup",function(){
+	    grp =document.getElementById('grp').value;
+	    document.getElementById('msg2').style.display = "block";
+	    document.getElementById('msg2').innerHTML = "Searching for <strong>"+grp+"</strong>";
+
+	    $.ajax({
+	      url : './pages/disproom.php',
+		  type : 'post' ,
+		  data : {'group1' : grp},
+		  success : function(data){
+		  if(data==""){
+		    $('#msg2').empty();
+		    document.getElementById('msg2').innerHTML = "Type something into the input field";
+
+		  }
+		  var response = data;
+		  response = response.replace(grp, "");
+		  document.getElementById('grpsearchresult').innerHTML = response;
+
+		}
+	      });
+
+	  },false);
+
+	//Group Search Ends                      
     var button1 = document.getElementById ("roomMateSave1");
 	var button3 = document.getElementById("roomMateSave2");
 	var button4 = document.getElementById("grp1");
@@ -392,8 +420,15 @@ Registrations for floor or group preference will begin soon!
 </div>
 
 <div id = "groupsearch">
-<input type="text" id = "grp" />
-<button id ="grp1"> dfgdf </button>
+<div class="searchInput" align="center">
+<input name="grp" type="search" id="grp" size="30" />
+</div>
+
+<div id="msg2">Search for groups</div>
+
+<div id="grpsearchresult">
+
+</div>
 </div>
 
 </body>
