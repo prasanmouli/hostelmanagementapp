@@ -83,10 +83,8 @@ $.ajax({
     $( ".sortableList" ).disableSelection();
   });	
 </script>
-
-<script type="text/javascript">
-  
-$.ajax({
+<script type="text/javascript"> 
+        $.ajax({
         url : './pages/checkRoomMateRequest.php' ,
         type : 'get' ,
         success : function(data){
@@ -99,15 +97,30 @@ $.ajax({
                                    $('#roomMateSave1').html(" Send Request ");
 
                                 }
-                        else
-                                 $('#roomMate1').val(data);
+                        else{
+                                 $('#roomMate1').attr('value' , data);
+				 $('#roomMate1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
+                      $('#roomMateSave1').css({"border-color":"#E66140" , "background-color": "#E66140"});
+                      $('#roomMateSave1').html("Cancel Request");
 
-                        
+					document.getElementById("roomMateSave2").display = "block";
+				console.log(document.getElementById("roomMateSave2").display);
+				 document.getElementById("roomMateSave2").visibility="visible";
+				   console.log(document.getElementById("roomMateSave2").visibility);
+
+                                console.log($('#roomMate1').val());
+                        }
                 }
         }); 
 
+
+</script>
+<script type="text/javascript">                    
+
  function AddEventHandler(){
-/* 	$.ajax({
+/* 
+if(1){	
+	$.ajax({
 	url : './pages/checkRoomMateRequest.php' ,
 	type : 'get' ,
 	success : function(data){
@@ -120,14 +133,14 @@ $.ajax({
 				   $('#roomMateSave1').html(" Send Request ");
 
 				}
-			else
-				 $('#roomMate1').val(data);
-
-			
+			else{
+				 $('#roomMate1').attr('value' , data);
+				console.log(data);
+			}
 		}
 	}); 
-
-*/
+}*/
+//SEARCH BAR
 	var searchBar = document.getElementById("searchq");
 	searchBar.addEventListener("keyup",function(){ 
 	searchq =document.getElementById('searchq').value;
@@ -153,28 +166,53 @@ $.ajax({
                
 	},false);
             
-              
+//Search Ends  
 
+//Group search starts
+                                                                                                                              
+	var grpsearchBar = document.getElementById("grp");
+        grpsearchBar.addEventListener("keyup",function(){
+	    grp =document.getElementById('grp').value;
+	    document.getElementById('msg2').style.display = "block";
+	    document.getElementById('msg2').innerHTML = "Searching for <strong>"+grp+"</strong>";
+
+	    $.ajax({
+	      url : './pages/disproom.php',
+		  type : 'post' ,
+		  data : {'group1' : grp},
+		  success : function(data){
+		  if(data==""){
+		    $('#msg2').empty();
+		    document.getElementById('msg2').innerHTML = "Type something into the input field";
+
+		  }
+		  var response = data;
+		  response = response.replace(grp, "");
+		  document.getElementById('grpsearchresult').innerHTML = response;
+
+		}
+	      });
+
+	  },false);
+
+	//Group Search Ends                      
     var button1 = document.getElementById ("roomMateSave1");
 	var button3 = document.getElementById("roomMateSave2");
 	var button4 = document.getElementById("grp1");
 
+        	if($('#roomMateSave1').html()==" Send Request "){
+			     button3.style.visibility='hidden';
 
-	$.ajax({
-	success : function(){
-		button3.style.visibility='hidden';
-        	if($('#roomMateSave2').html()==" Send Request "){
 			$('#roomMateMessage2').append("Confirm RoomMate 1");
 		}
 		else{
 			button3.style.visibility='visible';
 			}
-		}
-
-	});
+		
 
 	button1.addEventListener ("click", function (){
 		var roomMate1 = $('#roomMate1').val();
+			  console.log(roomMate1);
                 
 			  
 	    if(($('#roomMateSave1').html() == " Send Request ")){ 
@@ -209,14 +247,16 @@ $.ajax({
 	      $.ajax({
 		    url: "./pages/roomMateCancelRequest.php",
 		    type: "POST", 
-		    data: {'roomMate1': roomMate1},
+		    data: {'roomMate1': $('#roomMate1').val()},
 		    success: function(){
+			console.log("JHJH");
 		      $('#roomMate1').attr('value', '');
 		      $('#roomMateSave1').css({"border-color":"#04A4CC" , "background-color": "#04A4CC"});
 		      $('#roomMateSave1').html(" Send Request ");
 		      }
 		});
 		 button3.style.visibility='hidden';
+			 $('#roomMateMessage2').empty();
                         $('#roomMateMessage2').append("Confirm RoomMate 1");
                 }
               
@@ -343,8 +383,15 @@ Registrations for floor or group preference will begin soon!
 </div>
 
 <div id = "groupsearch">
-<input type="text" id = "grp" />
-<button id ="grp1"> dfgdf </button>
+<div class="searchInput" align="center">
+<input name="grp" type="search" id="grp" size="30" />
+</div>
+
+<div id="msg2">Search for groups</div>
+
+<div id="grpsearchresult">
+
+</div>
 </div>
 
 </body>

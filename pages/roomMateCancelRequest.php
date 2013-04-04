@@ -8,7 +8,7 @@
       $query_init = "SELECT userId FROM userDetails WHERE rollNo = '".$checkId."'";
       $info = mysql_fetch_array(mysql_query($query_init));
       if($info){
-        $query = "UPDATE userPreferences SET roommateId = 'NULL' WHERE userId = ".$userId;
+        $query = "UPDATE userPreferences SET roommateId1 = 'NULL' WHERE userId = ".$userId;
         mysql_query($query);
         //date_default_timezone_set('Asia/Calcutta');
         //$mysqltime = date ("Y-m-d H:i:s");
