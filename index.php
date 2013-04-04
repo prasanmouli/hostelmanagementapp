@@ -84,7 +84,8 @@ $.ajax({
   });	
 </script>
 <script type="text/javascript"> 
-        $.ajax({
+if(1){
+	 $.ajax({
         url : './pages/checkRoomMateRequest.php' ,
         type : 'get' ,
         success : function(data){
@@ -101,19 +102,53 @@ $.ajax({
                                  $('#roomMate1').attr('value' , data);
 				 $('#roomMate1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
                       $('#roomMateSave1').css({"border-color":"#E66140" , "background-color": "#E66140"});
-                      $('#roomMateSave1').html("Cancel Request");
-
-					document.getElementById("roomMateSave2").display = "block";
-				console.log(document.getElementById("roomMateSave2").display);
-				 document.getElementById("roomMateSave2").visibility="visible";
-				   console.log(document.getElementById("roomMateSave2").visibility);
-
-                                console.log($('#roomMate1').val());
+                      $('#roomMateSave1').html(" Cancel Request ");
+		$('#roomMate1').attr('disabled','disabled');
+		     //     $('#roomMateSave1').attr('disabled', 'disabled');
+                       //                               $('#roomMateSave1').html("CONFIRMED");  
                         }
-                }
+
+	        }
         }); 
+  
+
+           
+                if($('#roomMateSave1').html()==" Send Request "){
+                              document.getElementById("roomMateSave2").style.visibility='hidden';
+
+                        $('#roomMateMessage2').append("Confirm RoomMate 1");
+                }
+                else{
+			
+                        $.ajax({
+                                url : './pages/checkForRoomMate1.php' , 
+                                type : 'get' ,
+                                success : function(data){
+					
+			         		
+						       if(data!=""){
+						
+							document.getElementById("roomMateSave2").style.display = 'block';
+                                                        document.getElementById("roomMateSave2").style.visibility = "visible";
+							$('#roomMateMessage2').empty();
+							$('#roomMateSave1').attr('disabled', 'disabled');
+							$('#roomMateSave1').html("CONFIRMED");	
+                                                }
+						else{
+							document.getElementById("roomMateSave2").style.display = 'none';
+                                                        document.getElementById("roomMateSave2").style.visibility = "hidden";
+                                               //      $('#roomMateMessage2').append("RoomMate1 has not confirmed yet.");
+                               			}
+				 }
+                        });
 
 
+                        }
+                
+
+
+
+}
 </script>
 <script type="text/javascript">                    
 
@@ -172,16 +207,7 @@ if(1){
 	var button3 = document.getElementById("roomMateSave2");
 	var button4 = document.getElementById("grp1");
 
-        	if($('#roomMateSave1').html()==" Send Request "){
-			     button3.style.visibility='hidden';
-
-			$('#roomMateMessage2').append("Confirm RoomMate 1");
-		}
-		else{
-			button3.style.visibility='visible';
-			}
-		
-
+        	
 	button1.addEventListener ("click", function (){
 		var roomMate1 = $('#roomMate1').val();
 			  console.log(roomMate1);
@@ -195,6 +221,8 @@ if(1){
 		  data: {'roomMate1': roomMate1},
 		  success: function(html){
 		    if(html!="Invalid"){
+			      $('#roomMate1').attr('disabled','disabled');
+
 			button3.style.visibility='visible';
 			$('#roomMateMessage2').empty();
 		      $('#roomMateMessage1').empty();
@@ -221,11 +249,16 @@ if(1){
 		    type: "POST", 
 		    data: {'roomMate1': $('#roomMate1').val()},
 		    success: function(){
-			console.log("JHJH");
+			
+			
 		      $('#roomMate1').attr('value', '');
 		      $('#roomMateSave1').css({"border-color":"#04A4CC" , "background-color": "#04A4CC"});
 		      $('#roomMateSave1').html(" Send Request ");
-		      }
+		      },
+			complete : function(){
+						$('#roomMate1').removeAttr('disabled');
+						$('#roomMateMessage2').empty();
+					}
 		});
 		 button3.style.visibility='hidden';
 			 $('#roomMateMessage2').empty();
@@ -233,6 +266,10 @@ if(1){
                 }
               
 	  }, false);
+
+	//button2.addEventListener("click",function(){
+
+//	},false);
 	 $.ajax({
         url : './pages/checkRoomMateApproval.php' ,
         type : "GET" ,
