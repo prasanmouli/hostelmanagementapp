@@ -36,7 +36,7 @@
 }
 
 #menuBar td{
-	width: 320px;
+	width: 360px;
 	height: 35px;
 	font-size: 18px;
 	text-align: center;
@@ -287,11 +287,13 @@ input[type=search]:focus{
 }
 
 #notifications ul{
-    width: 800px;
     list-style: none;
+    padding: 0;
 }
 
 #notifications li{
+    width: 1080px;
+    font-size: 14px;
     line-height: 40px;
     margin-bottom: 10px;
     padding-left: 10px;
@@ -318,4 +320,18 @@ a, a:visited {
 .confirmationButton{
     width: 20px;
     height: 20px;
+}
+
+#approved{
+    font-size: 14px;
+    color: #04a4cc;
+    font-weight: bold;
+}
+
+.newNotification{
+    background: #F5F9FC;
+}
+
+#approved{
+    font-size: 12px;
 }
