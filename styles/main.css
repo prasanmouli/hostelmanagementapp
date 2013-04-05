@@ -299,12 +299,13 @@ input[type=search]:focus{
     border-radius: 5px;
 }
 
-#notifications button{
+.acceptButton{
     width: 70px;
 }
 
-#notifications .reject{
-	border-color: #E66140;
+#notifications .rejectButton{
+    width: 70px;    
+    border-color: #E66140;
     background-color: #E66140;
 }
 
@@ -312,4 +313,9 @@ a, a:visited {
     color: inherit;
     padding: 10px 50px;
     text-decoration: none;
+}
+
+.confirmationButton{
+    width: 20px;
+    height: 20px;
 }

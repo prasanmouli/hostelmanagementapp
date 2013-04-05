@@ -10,13 +10,23 @@ include_once("./pages/config.lib.php");
 <link href="./styles/main.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="./scripts/jquery.min.js"></script>
 <script type="text/javascript">
-function requestApproval(roomMateId){
-   $.ajax({
+
+function confirmRequestApproval(roomMateId){
+   $('#button'+roomMateId).css('display','none');
+   console.log(roomMateId);
+   $('#confirmation'+roomMateId).empty();
+   $('#confirmation'+roomMateId).append("Are you sure you want to confirm? <button class='confirmationButton' onclick='requestApproval("+roomMateId+")'> Y </button> <button class='confirmationButton' onclick=rejectRequest("+roomMateId+")> N </button>");
+}
+
+function requestApproval(roomMateId){ 
+  $.ajax({
        	 url : './pages/checkRoomMateApproval.php',
          type : 'POST' , 
 	 data : {'approvalId' : roomMateId},
 	 success : function(data){
 	 if(data=="Success"){
+	   $('#confirmation'+roomMateId).empty();
+	   $('#button'+roomMateId).css('display', 'none');
 	   $('#accept').remove();
 	   $('#reject1').remove();
 	   $('#approved').append("Approved!");
@@ -27,7 +37,7 @@ function requestApproval(roomMateId){
 </script>
 </head>
 
-<body onload="AddEventHandler();">
+<body>
 <div>
 
 <table id="menuBar">
@@ -35,6 +45,7 @@ function requestApproval(roomMateId){
 </table>
 
 <div id="notifications">
+ <p style="font-size: 14px; color: #E66140; font-weight: bold;"> This is really <span style='text-decoration: underline'>IMPORTANT</span>: Once a request is approved no further alteration/cancellation is possible. Changes will be final. </p> 
 <ul>
 <?php
 $userId = mysql_real_escape_string($_POST['userId']);
@@ -48,7 +59,7 @@ while($info = mysql_fetch_array($res)){
   $info1 = mysql_fetch_array($res1);
   $requestRollNo = $info1['rollNo'];
   //$requestTime = $info['requestTime'];
-  echo "<li> <strong>".$info1['userName']." </strong>(".$info1['rollNo'].") wants to be your room mate.".$requestTime." <button id='accept' onclick='requestApproval(".$info1['userId'].")'> Accept </button> <button id='reject1' class='reject'> Reject  </button> <span id='approved'> </span> </li>";
+  echo "<li> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong>(".$info1['rollNo'].") wants to be your room mate.".$requestTime."</div><div id='button".$info['userId']."'> <button id='accept' class='acceptButton' onclick='confirmRequestApproval(".$info['userId'].")'> Accept </button> <button id='reject' class='rejectButton'> Reject </button> </div> </div> <div style='font-size:13px; color: #04a4cc;' id='confirmation".$info['userId']."'> </div> <span id='approved'> </span> </li>";
 }
 ?>
 </ul>

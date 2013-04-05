@@ -4,29 +4,23 @@ include_once("config.lib.php");
 $searchId = mysql_real_escape_string($_POST['group1']) ; 
 echo $searchId."<br/>";
 $prevId = "";
+$grpsDisplayed = array();
 //$userid = '100000';
 
 if(($searchId!=NULL)&&($searchId!="")){
 
-$query = "SELECT roomMateRequestId, userId from requests WHERE (userId LIKE '%".$searchId."%' OR roomMateRequestId LIKE '%".$searchId."%') AND accepted = '1'";
-$printtable = mysql_query($query);
+  $query = "SELECT * from finalRoomList WHERE (roomMate1 LIKE '%".$searchId."%' OR roomMate2 LIKE '%".$searchId."%' OR roomMate3 LIKE '%".$searchId."%')";
+  $res = mysql_query($query);
 
-while($info=mysql_fetch_array($printtable)){
-  /*$k=1;
-  if($k==1&&($prevId!=$info['roomMateRequestId'])){//||$prevId1!=$info['userId'])){
-    echo $info['roomMateRequestId']. "<br/>";
-    $k++;
-  }*/
-  //$prevId = $info['roomMateRequestId'];
-  //$prevId1 = $info['userId'];
-  if($prevId==$info['userId']&&$prevId2!=$info['roomMateRequestId'])
-    echo $info['roomMateRequestId'] . "<br/>";
-  else if($prevId!=$info['userId']&&$prevId2==$info['roomMateRequestId'])
-         echo $info['userId'] . "<br/>";
-       else
-         echo $info['userId']. "<br/>". $info['roomMateRequestId']. "<br/>";
-  $prevId = $info['roomMateRequestId'];
-  $prevId2 = $info['userId'];
+  while($info=mysql_fetch_array($res)){
+    echo "Group ID : ".$info['groupId']."<br/>";
+    for($i=1; $i<=3; $i++){
+      $query2 = "SELECT * from userDetails WHERE userId=".$info[$i];
+      $res2 = mysql_query($query2);
+      $info2 = mysql_fetch_array($res2);
+      echo $info2['userName']."(".$info2['rollNo'].")"."<br/>";
+    }
   }
 }
+exit;
 ?>
