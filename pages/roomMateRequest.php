@@ -3,7 +3,7 @@ include_once("config.lib.php");
 
 $userId = $_SESSION['userId'];
 $userId = '100000';
-$checkId = mysql_real_escape_string($_POST['roomMate1']);
+$checkId = mysql_real_escape_string($_POST['roomMate']);
 if($checkId){
 $query_init = "SELECT userId FROM userDetails WHERE rollNo = '".$checkId."'";
 $info = mysql_fetch_array(mysql_query($query_init));

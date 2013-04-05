@@ -3,12 +3,13 @@
  
     $userId = $_SESSION['userId'];
     $userId = '100000';
-    $checkId = mysql_real_escape_string($_POST['roomMate1']);
+    $checkId = mysql_real_escape_string($_POST['roomMate']);
+	$roomMateNo = mysql_real_escape_string($_POST['roomMateNo']);
 
       $query_init = "SELECT userId FROM userDetails WHERE rollNo = '".$checkId."'";
       $info = mysql_fetch_array(mysql_query($query_init));
       if($info){
-        $query = "UPDATE userPreferences SET roommateId1 =NULL WHERE userId = ".$userId;
+        $query = "UPDATE userPreferences SET roommateId".$roomMateNo." =NULL WHERE userId = ".$userId;
         mysql_query($query);
         //date_default_timezone_set('Asia/Calcutta');
         //$mysqltime = date ("Y-m-d H:i:s");
