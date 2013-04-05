@@ -14,6 +14,17 @@
 
 <script type="text/javascript"> 
 $(document).ready(function(){	
+	$.ajax({
+		url : './pages/checkNotifications.php',
+		type : 'get' ,
+		success : function(data){
+	
+	if(data!="0"){
+	
+	alert("Please respond to your notifications first");
+	window.location = "notifications.php";
+	}
+	else{
 	 $.ajax({
         url : './pages/checkRoomMateRequest.php' ,
         type : 'get' ,
@@ -145,7 +156,9 @@ $(document).ready(function(){
 		 }
 		
         }); 
-  
+	}
+	}
+	});  
 });
 
 </script>
@@ -186,15 +199,20 @@ if(1){
 	        type : 'get' , 
         	data : {'name' : searchq},
 	        success : function(data){
-				if(data==""){
-					$('#msg').empty();
-				        document.getElementById('msg').innerHTML = "Type something into the input field";
-
+				if(data=="2"){
+				$('#msg').html("Type something into the input field");
+				$('#search-result').empty();
 				}
+				else if(data=="0"){
+						$('#msg').html("No Matches Found.");
+						$('#search-result').empty();
+				}
+				else{
         	                var response = data;
-                	        response = response.replace(searchq, "");
+			
+                	      //  response = response.replace(searchq, "");
                         	document.getElementById('search-result').innerHTML = response;
-                                        
+                                     }   
 	                }       
 	        });         
                
@@ -212,18 +230,22 @@ if(1){
 
 	    $.ajax({
 	      url : './pages/disproom.php',
-		  type : 'post' ,
-		  data : {'group1' : grp},
-		  success : function(data){
-		  if(data==""){
-		    $('#msg2').empty();
-		    document.getElementById('msg2').innerHTML = "Type something into the input field";
-
-		  }
-		  var response = data;
-		  response = response.replace(grp, "");
-		  document.getElementById('grpsearchresult').innerHTML = response;
-
+		  type : 'get' ,
+		  data : {'name' : grp},
+		  success : function(data){console.log(data);
+		   if(data=="2"){
+                                $('#msg2').html("Type something into the input field");
+                                $('#grpsearchresult').empty();
+                                }
+                    else if(data=="0"){
+                                      $('#msg2').html("No Matches Found.");
+                                       $('#grpsearchresult').empty();
+                               }
+			else{
+			  var response = data;
+		//	  response = response.replace(grp, "");
+		  	document.getElementById('grpsearchresult').innerHTML = response;
+			}
 		}
 	      });
 
@@ -470,7 +492,7 @@ Registrations for floor or group preference will begin soon!
 </div>
 
 <div id="searchDiv" align="center">
-<h2> Search </h2>
+<h2>Student Search </h2>
 <div class="searchInput" align="center">
    <input name="searchq" type="search" id="searchq" size="30"/>
 </div>
@@ -481,13 +503,14 @@ Registrations for floor or group preference will begin soon!
 </div>
 
 <div id = "groupsearch">
+<h2>Group Search</h2>
 <div class="searchInput" align="center">
 <input name="grp" type="search" id="grp" size="30" />
 </div>
 
-<div id="msg2">Search for groups</div>
+<div id="msg2">Type something into the input field</div>
 
-<div id="grpsearchresult">
+<div id="grpsearchresult"></div>
 
 </div>
 </div>
