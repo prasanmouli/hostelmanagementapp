@@ -11,144 +11,143 @@
 <link href="./styles/main.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="./scripts/jquery.min.js"></script>
 <script type="text/javascript" src="./scripts/jquery-ui.min.js"></script>
-<script type="text/javscript">
 
-/* ---------------------------- */
-/* XMLHTTPRequest Enable */
-/* ---------------------------- */
-/*
-function createObject() {
-var request_type;
-var browser = navigator.appName;
-if(browser == "Microsoft Internet Explorer"){
-request_type = new ActiveXObject("Microsoft.XMLHTTP");
-} else {
-request_type = new XMLHttpRequest();
-}
-return request_type;
-}
-*/
-//var http = createObject();
-
-/* -------------------------- */
-/* SEARCH */
-/* -------------------------- */
-/*
-function searchNameq() {
-searchq = encodeURI(document.getElementById('searchq').value);
-document.getElementById('msg').style.display = "block";
-document.getElementById('msg').innerHTML = "Searching for <strong>" + searchq+"</strong>";
-// Set te random number to add to URL request
-nocache = Math.random();
-http.open('get', './pages/dbconnection.php?name='+searchq+'');
-http.onreadystatechange = searchNameqReply;
-http.send(null);
-}
-function searchNameqReply() {
-if(http.readyState == 4){
-var response = http.responseText;
-//response = response.replace(searchq, "");
-document.getElementById('search-result').innerHTML = response;
-}
-}
-*/ 
-/*
-var searchBar = document.getElementById("searchq");
-searchBar.addEventListener("keyup",function(){ 
-searchq =document.getElementById('searchq').value;
-document.getElementById('msg').style.display = "block";
-document.getElementById('msg').innerHTML = "Searching for <strong>" + searchq+"</strong>";
-    
-$.ajax({
-	url : './pages/dbconnection.php',
-	type : 'get' , 
-	data : {'name' : searchq},
-	success : function(data){
-			var response = data;
-			response = response.replace(searchq, "");
-			document.getElementById('search-result').innerHTML = response;
-					
-		}
-	});         
-               
-},false);
-        */    
-               
-                   
-                            
-</script>
-<script>
-  $(function() {
-    $( ".sortableList" ).sortable({placeholder: "ui-state-highlight"});
-    $( ".sortableList" ).disableSelection();
-  });	
-</script>
 <script type="text/javascript"> 
-if(1){
+$(document).ready(function(){	
 	 $.ajax({
         url : './pages/checkRoomMateRequest.php' ,
         type : 'get' ,
         success : function(data){
                         
-                        if(data=="0"){
-                        console.log(data);
-                      $('#roomMateSave1').css({"background-color": "#04A4CC"});
+                        if(data==""){
+       
+                     $('#roomMateSave1').css({"border-color":"#04A4CC" , "background-color": "#04A4CC"});
+
 
                                 $('#roomMateSave1').empty();    
                                    $('#roomMateSave1').html(" Send Request ");
-
+					document.getElementById('roomMateSave2').style.visibility = "hidden";
+				         $('#roomMateSave2').attr('display','none');
+                                        $('#roomMateMessage2').empty();
+				
+	$('#roomMateMessage2').append("Confirm RoomMate 1");
                                 }
                         else{
-                                 $('#roomMate1').attr('value' , data);
-				 $('#roomMate1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
+				roomMateRollNo=data.split(";")
+					
+					if(roomMateRollNo.length==3){	
+                                 $('#roomMate1').attr('value' , roomMateRollNo[0]);
+				 
+		
+				   $('#roomMate2').attr('value' , roomMateRollNo[1]);
+	                                 
+
+				$('#roomMate1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
+                      $('#roomMateSave1').css({"border-color":"#E66140" , "background-color": "#E66140"});
+                     $('#roomMateSave1').html(" Cancel Request ");
+		$('#roomMate1').attr('disabled','disabled');
+
+ $('#roomMate2').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
+                      $('#roomMateSave2').css({"border-color":"#E66140" , "background-color": "#E66140"});
+                      $('#roomMateSave2').html(" Cancel Request ");
+                $('#roomMate2').attr('disabled','disabled');
+			}
+		      else{
+			                 $('#roomMate1').attr('value' , roomMateRollNo[0]);					                                $('#roomMate1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
                       $('#roomMateSave1').css({"border-color":"#E66140" , "background-color": "#E66140"});
                       $('#roomMateSave1').html(" Cancel Request ");
-		$('#roomMate1').attr('disabled','disabled');
-		     //     $('#roomMateSave1').attr('disabled', 'disabled');
-                       //                               $('#roomMateSave1').html("CONFIRMED");  
+                $('#roomMate1').attr('disabled','disabled');
+
+			
+
+			}
                         }
 
-	        }
-        }); 
-  
+	       
+	},
+	complete : function(){
+		
 
-           
+
+//RoomMate 1           
+
                 if($('#roomMateSave1').html()==" Send Request "){
-                              document.getElementById("roomMateSave2").style.visibility='hidden';
-
+                        
+      document.getElementById("roomMateSave2").style.visibility='hidden';
+                        $('#roomMateMessage2').empty();
                         $('#roomMateMessage2').append("Confirm RoomMate 1");
                 }
                 else{
-			
+    
                         $.ajax({
-                                url : './pages/checkForRoomMate1.php' , 
-                                type : 'get' ,
+                                url : './pages/checkForRoomMate.php' , 
+                                type : 'post' ,
+                                data : {'roomMateNo' : 1},
                                 success : function(data){
-					
-			         		
-						       if(data!=""){
-						
-							document.getElementById("roomMateSave2").style.display = 'block';
+        
+                                         
+
+                                                       if(data!=""){
+                                             
+                                                        document.getElementById("roomMateSave2").style.display = 'block';
                                                         document.getElementById("roomMateSave2").style.visibility = "visible";
-							$('#roomMateMessage2').empty();
-							$('#roomMateSave1').attr('disabled', 'disabled');
-							$('#roomMateSave1').html("CONFIRMED");	
-                                                }
-						else{
-							document.getElementById("roomMateSave2").style.display = 'none';
+                                                        $('#roomMateMessage2').empty();
+                                                         $('#roomMateSave1').attr("disabled",'disabled');       
+                                                        $('#roomMateSave1').html("CONFIRMED");  
+                                        
+                                                             }
+                                                else{
+        
+                                                        $("#roomMateSave2").attr('display' ,'none');
                                                         document.getElementById("roomMateSave2").style.visibility = "hidden";
-                                               //      $('#roomMateMessage2').append("RoomMate1 has not confirmed yet.");
-                               			}
-				 }
+                                                  $('#roomMateMessage2').append("RoomMate1 has not confirmed yet.");
+                                                }
+                                 }
                         });
 
 
                         }
-                
+
+               
+//RoomMate2
+  
+                if($('#roomMateSave2').html()!=" Send Request "){
+                        
+                        $.ajax({
+                                url : './pages/checkForRoomMate.php' , 
+                                type : 'post' ,
+                                data : {'roomMateNo' : 2},
+                                success : function(data){
+        
+                 
+                                                       if(data!=""){
+        
+                                                       
+                                                        $('#roomMateMessage2').empty();
+                                                        $('#roomMateSave2').attr('disabled', 'disabled');
+                                       $('#roomMateSave2').html("CONFIRMED");                                                                                                                 }
+                        
+                                 }
+                        });
+
+
+                        }
+        
 
 
 
-}
+
+
+
+
+
+
+		 }
+		
+        }); 
+  
+});
+
 </script>
 <script type="text/javascript">                    
 
@@ -233,7 +232,7 @@ if(1){
 	//Group Search Ends                      
     var button1 = document.getElementById ("roomMateSave1");
 	var button3 = document.getElementById("roomMateSave2");
-	var button4 = document.getElementById("grp1");
+//	var button4 = document.getElementById("grp1");
 
         	
 	button1.addEventListener ("click", function (){
@@ -246,15 +245,16 @@ if(1){
 		$.ajax({
 	          url: "./pages/roomMateRequest.php",
 		  type: "POST",
-		  data: {'roomMate1': roomMate1},
+		  data: {'roomMate': roomMate1},
 		  success: function(html){
 		    if(html!="Invalid"){
 			      $('#roomMate1').attr('disabled','disabled');
 
-			button3.style.visibility='visible';
+			
 			$('#roomMateMessage2').empty();
 		      $('#roomMateMessage1').empty();
-                      $('#roomMate1').attr('value', roomMate1);
+                	$('#roomMateMessage1').append("Request Has been sent . Please wait for him/her to accept");
+		      $('#roomMate1').attr('value', roomMate1);
 		      $('#roomMate1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
                       $('#roomMateSave1').css({"border-color":"#E66140" , "background-color": "#E66140"});
                       $('#roomMateSave1').html("Cancel Request");
@@ -275,7 +275,7 @@ if(1){
 	      $.ajax({
 		    url: "./pages/roomMateCancelRequest.php",
 		    type: "POST", 
-		    data: {'roomMate1': $('#roomMate1').val()},
+		    data: {'roomMate': $('#roomMate1').val(),'roomMateNo' : 1},
 		    success: function(){
 			
 			
@@ -295,10 +295,71 @@ if(1){
               
 	  }, false);
 
-	//button2.addEventListener("click",function(){
+button3.addEventListener("click",function(){
+ var roomMate2 = $('#roomMate2').val();
+                          
+                
+                          
+            if(($('#roomMateSave2').html() == " Send Request ")){ 
+              if(roomMate2){
+		
+                $.ajax({
+                  url: "./pages/roomMateRequest.php",
+                  type: "POST",
+                  data: {'roomMate': roomMate2},
+                  success: function(html){
+		
+                    if(html!="Invalid"){
+                              $('#roomMate2').attr('disabled','disabled');
 
-//	},false);
-	 $.ajax({
+                       
+                        $('#roomMateMessage2').empty();
+			 $('#roomMateMessage2').append("Request Has been sent . Please wait for him/her to accept");
+                      $('#roomMateMessage1').empty();
+                      $('#roomMate2').attr('value', roomMate2);
+                      $('#roomMate2').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
+                      $('#roomMateSave2').css({"border-color":"#E66140" , "background-color": "#E66140"});
+                      $('#roomMateSave2').html("Cancel Request");
+                    }
+                    else{
+                      $('#roomMate2').css({"border" : "2px solid #E66140", "color" : "#E66140"});
+                      $('#roomMateMessage2').empty();
+                      $('#roomMateMessage2').append("Invalid Roll Number");
+                    }
+                  }
+		
+              });
+		}
+                else{
+                             $('#roomMateMessage2').empty();
+                      $('#roomMateMessage2').append("Enter Roll Number");
+                }
+        }
+            else{
+              $.ajax({
+                    url: "./pages/roomMateCancelRequest.php",
+                    type: "POST", 
+                    data: {'roomMate': $('#roomMate2').val(), 'roomMateNo' : 2},
+                    success: function(){
+                        
+                        
+                      $('#roomMate2').attr('value', '');
+                      $('#roomMateSave2').css({"border-color":"#04A4CC" , "background-color": "#04A4CC"});
+                      $('#roomMateSave2').html(" Send Request ");
+                      },
+			 complete : function(){
+                                                $('#roomMate2').removeAttr('disabled');
+                                                $('#roomMateMessage2').empty();
+                                        }
+                });
+                   $('#roomMateMessage2').empty();
+                       
+                }
+              
+          }, false);
+
+
+	/* $.ajax({
         url : './pages/checkRoomMateApproval.php' ,
         type : "GET" ,
         success:function(data){
@@ -309,7 +370,7 @@ if(1){
 
                         }
                 }
-        });
+        });*/
 
         var button2 = document.getElementById("hostelSave");
         button2.addEventListener("click", function(){
@@ -329,7 +390,7 @@ if(1){
 		  });
          }, false);
 
-
+/*
 	button4.addEventListener ("click", function (){
 	    var group1 = $('#grp').val();
 
@@ -362,7 +423,7 @@ if(1){
 	      }
 	  }, false );
 
-
+*/
 
 
     }
@@ -399,7 +460,7 @@ Registrations for hostels will begin soon!
 
 <div class="box"> <h2> FLOOR </h2>
 <div class="encapsule" align="center">
-<img class="loaderImg" style="display: none;" src="./images/ajax-loader.gif" type="gif" /> 
+<img class="loaderImg" style = "display : none;" src="./images/ajax-loader.gif" type="gif" /> 
 <div id="floor" class="sortableList">
 Registrations for floor or group preference will begin soon!  
 </div>
