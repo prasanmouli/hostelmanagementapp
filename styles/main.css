@@ -319,3 +319,9 @@ a, a:visited {
     width: 20px;
     height: 20px;
 }
+
+#approved{
+    font-size: 14px;
+    color: #04a4cc;
+    font-weight: bold;
+}

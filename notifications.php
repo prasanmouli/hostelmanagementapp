@@ -59,7 +59,10 @@ while($info = mysql_fetch_array($res)){
   $info1 = mysql_fetch_array($res1);
   $requestRollNo = $info1['rollNo'];
   //$requestTime = $info['requestTime'];
-  echo "<li> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong>(".$info1['rollNo'].") wants to be your room mate.".$requestTime."</div><div id='button".$info['userId']."'> <button id='accept' class='acceptButton' onclick='confirmRequestApproval(".$info['userId'].")'> Accept </button> <button id='reject' class='rejectButton'> Reject </button> </div> </div> <div style='font-size:13px; color: #04a4cc;' id='confirmation".$info['userId']."'> </div> <span id='approved'> </span> </li>";
+  if($info['accepted']!=1)
+    echo "<li> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong>(".$info1['rollNo'].") wants to be your room mate.".$requestTime."</div><div id='button".$info['userId']."'> <button id='accept' class='acceptButton' onclick='confirmRequestApproval(".$info['userId'].")'> Accept </button> <button id='reject' class='rejectButton'> Reject </button> </div> </div> <div style='font-size:13px; color: #04a4cc;' id='confirmation".$info['userId']."'> </div> <span id='approved'> </span> </li>";
+  else
+    echo "<li> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong>(".$info1['rollNo'].") wants to be your room mate.".$requestTime."</div> <span id='approved'> Approved! </span> </li>";
 }
 ?>
 </ul>
