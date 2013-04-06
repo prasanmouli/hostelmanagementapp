@@ -29,6 +29,7 @@ function requestApproval(roomMateId){
          type : 'POST' , 
 	 data : {'approvalId' : roomMateId},
 	 success : function(data){
+	console.log(data);
 	 if(data=="Success"){
 	   listOfRequests = "";
 	   
