@@ -329,9 +329,11 @@ a, a:visited {
 }
 
 .newNotification{
-    background: #F5F9FC;
+    background-color: #b8c5cb;
 }
 
-#approved{
+.approved{
     font-size: 12px;
+    color: #04a4cc;
+    font-weight: bold;
 }
