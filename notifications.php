@@ -30,12 +30,18 @@ function requestApproval(roomMateId){
 	 data : {'approvalId' : roomMateId},
 	 success : function(data){
 	 if(data=="Success"){
+	   listOfRequests = "";
+	   
+	   for(var i=0; i<$('.primaryButtons').length; i++)
+	     listOfRequests += ($('.primaryButtons').map(function() {return this.id;}).toArray()[i]).split("button").pop() + ";";
+	   console.log(listOfRequests);
+
 	   $('#confirmation'+roomMateId).empty();
 	   $('#button'+roomMateId).css('display', 'none');
 	   $('#accept').remove();
 	   $('#reject1').remove();
 	   //$('#newNotification'+roomMateId).css("bakcground": "white");
-	   $('#approved').append("Approved!");
+	   $('#approved'+roomMateId).append("Approved!");
 	 }                                        
 	 }       
   });
@@ -59,7 +65,7 @@ function requestReject(roomMateId){
 	  $('#accept').remove();
 	  $('#reject1').remove();
 	  //$('#newNotification'+roomMateId).css("bakcground": "white");                                                                  
-	  $('#approved').append("Rejected!");
+	  $('#approved'+roomMateId).append("Rejected!");
 	}
       }
     });
@@ -83,7 +89,7 @@ function requestReject(roomMateId){
   $d=1;
 $userId = mysql_real_escape_string($_POST['userId']);
 $userId = '100000';
-$query = "SELECT * FROM requests WHERE roomMateRequestId = ".$userId." ORDER BY requestTime DESC";
+$query = "SELECT * FROM requests WHERE roomMateRequestId = ".$userId." OR userId = ".$userId." ORDER BY requestTime DESC";
 $res = mysql_query($query);
 while($info = mysql_fetch_array($res)){
   $d=0;
@@ -91,16 +97,29 @@ while($info = mysql_fetch_array($res)){
   $query1 = "SELECT * FROM userDetails WHERE userId = ".$info['userId'];
   $res1 = mysql_query($query1);
   $info1 = mysql_fetch_array($res1);
+  
+  $query2 = "SELECT * FROM userDetails WHERE userId = ".$info['roomMateRequestId'];
+  $res2 = mysql_query($query2);
+  $info2 = mysql_fetch_array($res2);
+
   $requestRollNo = $info1['rollNo'];
   //$requestTime = $info['requestTime'];
+  if($info['roomMateRequestId']==$userId){
   if($info['accepted']=='1')
-    echo "<li> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong> <span style='font-size: 11px'>(".$info1['rollNo'].")</span> wanted to be your room mate.".$requestTime."</div> <span id='approved'> Approved! </span> </li>";
+    echo "<li> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong> <span style='font-size: 11px'>(".$info1['rollNo'].")</span> wanted to be your room mate.".$requestTime."</div> <span class='approved' id='approved".$info['userId']."'> Approved! </span> </li>";
   else if($info['accepted']=='0')
-         echo "<li> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong> <span style='font-size: 11px'>(".$info1['rollNo'].")</span> wanted to be your room mate.".$requestTime."</div> <span id='approved'> Rejected! </span> </li>";
+         echo "<li> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong> <span style='font-size: 11px'>(".$info1['rollNo'].")</span> wanted to be your room mate.".$requestTime."</div> <span class='approved' id='approved".$info['userId']."'> Rejected! </span> </li>";
        else{
 	   $name = str_replace(" ", ".", $info1['userName']);
-           echo "<li class='newNotification'> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong> <span style='font-size: 11px'>(".$info1['rollNo'].")</span> wants to be your room mate.".$requestTime."</div><div id='button".$info['userId']."'><button id='accept' class='acceptButton' onclick=confirmRequestApproval(".$info['userId'].",'".$name."')> Accept </button> <button id='reject' class='rejectButton' onclick=confirmRejectRequest(".$info['userId'].")> Reject </button> </div> </div> <div style='font-size:13px; color: #04a4cc;' id='confirmation".$info['userId']."'> </div> <span id='approved'> </span> </li>";
+           echo "<li class='newNotification'> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong> <span style='font-size: 11px'>(".$info1['rollNo'].")</span> wants to be your room mate.".$requestTime."</div><div id='button".$info['userId']."' class='primaryButtons'><button id='accept' class='acceptButton' onclick=confirmRequestApproval(".$info['userId'].",'".$name."')> Accept </button> <button id='reject' class='rejectButton' onclick=confirmRejectRequest(".$info['userId'].")> Reject </button> </div> </div> <div style='font-size:13px; color: #04a4cc;' id='confirmation".$info['userId']."'> </div> <span class='approved' id='approved".$info['userId']."'> </span> </li>";
        }
+  }
+  else if($info['userId']==$userId){
+    if($info['accepted']=='1')
+      echo "<li> <strong>".$info2['userName']." </strong> <span style='font-size: 11px'>(".$info2['rollNo'].")</span> has accepted your request.".$requestTime." </li>";
+    else if($info['accepted']=='0')
+      echo "<li> <strong>".$info2['userName']." </strong> <span style='font-size: 11px'>(".$info2['rollNo'].")</span> has rejected your request.".$requestTime."</li>";
+  }
 }
 
 if($d==1)
