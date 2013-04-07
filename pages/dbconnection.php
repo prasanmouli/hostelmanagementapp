@@ -19,7 +19,7 @@ $x=1;
 
 $getName1 = mysql_query($getname1_sql);
 while ($row1 = mysql_fetch_array($getName1)) {
-echo $row1['userName'] ." <span style='font-size: 13px;'>(".$row1['rollNo']. ")</span><br/>";
+echo "<div style='border-bottom: 1px solid blue;'>".$row1['userName'] ."<br/><span style='font-size: 13px;'>(".$row1['rollNo']. ")</span></div>";
 $x=1;
 }
 }
