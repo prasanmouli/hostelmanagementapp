@@ -13,7 +13,19 @@
 <script type="text/javascript" src="./scripts/jquery-ui.min.js"></script>
 
 <script type="text/javascript"> 
+   var capacity;
 $(document).ready(function(){	
+    $.ajax({
+      url: './pages/getCapacity.php',
+      type: 'get',
+      success: function(data){
+	  capacity = data;
+	  if(capacity==2){
+	    $('.encapsule').css({"height":"100px"});
+	  }
+      },
+      complete: function(){  	  
+
 	$.ajax({
 		url : './pages/checkNotifications.php',
 		type : 'get' ,
@@ -37,19 +49,22 @@ $(document).ready(function(){
 
                                 $('#roomMateSave1').empty();    
                                    $('#roomMateSave1').html(" Send Request ");
-					document.getElementById('roomMateSave2').style.visibility = "hidden";
-				         $('#roomMateSave2').attr('display','none');
+				   if(capacity>2){
+                                        document.getElementById('roomMateSave2').style.visibility = "hidden";
+				        $('#roomMateSave2').attr('display','none');
                                         $('#roomMateMessage2').empty();
 				
 	$('#roomMateMessage2').append("Confirm RoomMate 1");
+				   }
                                 }
                         else{
+			  console.log(data);
 				roomMateRollNo=data.split(";")
 					
 					if(roomMateRollNo.length==3){	
                                  $('#roomMate1').attr('value' , roomMateRollNo[0]);
 				 
-		
+				 if(capacity>2)
 				   $('#roomMate2').attr('value' , roomMateRollNo[1]);
 	                                 
 
@@ -57,11 +72,12 @@ $(document).ready(function(){
                       $('#roomMateSave1').css({"border-color":"#E66140" , "background-color": "#E66140"});
                      $('#roomMateSave1').html(" Cancel Request ");
 		$('#roomMate1').attr('disabled','disabled');
-
+				 if(capacity>2){
  $('#roomMate2').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
                       $('#roomMateSave2').css({"border-color":"#E66140" , "background-color": "#E66140"});
                       $('#roomMateSave2').html(" Cancel Request ");
-                $('#roomMate2').attr('disabled','disabled');
+		      $('#roomMate2').attr('disabled','disabled');
+				 }
 			}
 		      else{
 			                 $('#roomMate1').attr('value' , roomMateRollNo[0]);					                                $('#roomMate1').css({"border" : "1px solid #04A4CC", "color" : "#04A4CC"});
@@ -83,11 +99,12 @@ $(document).ready(function(){
 //RoomMate 1           
 
                 if($('#roomMateSave1').html()==" Send Request "){
-                        
+		  if(capacity>2){
       document.getElementById("roomMateSave2").style.visibility='hidden';
                         $('#roomMateMessage2').empty();
                         $('#roomMateMessage2').append("Confirm RoomMate 1");
-                }
+		  }
+		}
                 else{
     
                         $.ajax({
@@ -97,21 +114,25 @@ $(document).ready(function(){
                                 success : function(data){
         
                                          
-
+			      console.log(data);
                                                        if(data!=""){
-                                             
+							 console.log(data);
+							 if(capacity>2){ 
                                                         document.getElementById("roomMateSave2").style.display = 'block';
                                                         document.getElementById("roomMateSave2").style.visibility = "visible";
                                                         $('#roomMateMessage2').empty();
+							 }
                                                          $('#roomMateSave1').attr("disabled",'disabled');       
                                                         $('#roomMateSave1').html("CONFIRMED");  
-                                        
+							console.log(data);
+
                                                              }
                                                 else{
-        
+						  if(capacity>2){
                                                         $("#roomMateSave2").attr('display' ,'none');
                                                         document.getElementById("roomMateSave2").style.visibility = "hidden";
-                                                  $('#roomMateMessage2').append("RoomMate1 has not confirmed yet.");
+							$('#roomMateMessage2').append("RoomMate1 has not confirmed yet.");
+						  }
                                                 }
                                  }
                         });
@@ -133,10 +154,11 @@ $(document).ready(function(){
                  
                                                        if(data!=""){
         
-                                                       
+							if(capacity>2){ 
                                                         $('#roomMateMessage2').empty();
                                                         $('#roomMateSave2').attr('disabled', 'disabled');
-                                       $('#roomMateSave2').html("CONFIRMED");                                                                                                                 }
+							$('#roomMateSave2').html("CONFIRMED");
+							 }                                                                                                                 }
                         
                                  }
                         });
@@ -144,21 +166,18 @@ $(document).ready(function(){
 
                         }
         
-
-
-
-
-
-
-
-
-
 		 }
 		
         }); 
 	}
 	}
 	});  
+
+}
+});
+      
+
+
 });
 
 </script>
@@ -461,7 +480,7 @@ button3.addEventListener("click",function(){
 </table>
 <h1> Your Preferences </h1>
 
-<div style="float:left;">
+<div style="float:left; width: 500px;">
 <div class="box"> <h2> ROOM MATES </h2>
 <div class="encapsule" style="margin-top: -13px; height: 180px;" align="center" id="roomMate">
 <?php
@@ -491,28 +510,26 @@ Registrations for floor or group preference will begin soon!
 </div>
 </div>
 
-<div id="searchDiv" align="center">
+<div id="searchDiv" style="height: 500px;float :left; width: 700px;">
+
+<div style="float:left; width: 250px;">
 <h2>Student Search </h2>
 <div class="searchInput" align="center">
-   <input name="searchq" type="search" id="searchq" size="30"/>
+ <input name="searchq" type="search" id="searchq" size="30"/>
 </div>
 <div id="msg">Type something into the input field</div>
-<div id="search-result"></div>
+<div id="search-result" style='height: 100px;'></div>
 </div>
 
-</div>
-
-<div id = "groupsearch">
+<div style="float:left; width: 250px;">
 <h2>Group Search</h2>
 <div class="searchInput" align="center">
-<input name="grp" type="search" id="grp" size="30" />
+   <input name="grp" type="search" id="grp" size="30" />
 </div>
-
 <div id="msg2">Type something into the input field</div>
-
-<div id="grpsearchresult"></div>
-
+<div id="grpsearchresult" style='height: 100px;'></div>
 </div>
+
 </div>
 
 </body>
