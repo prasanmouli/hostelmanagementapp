@@ -463,7 +463,7 @@ button3.addEventListener("click",function(){
 
 <div style="float:left;">
 <div class="box"> <h2> ROOM MATES </h2>
-<div class="encapsule" style="margin-top: -13px;" align="center" id="roomMate">
+<div class="encapsule" style="margin-top: -13px; height: 180px;" align="center" id="roomMate">
 <?php
 	  include_once("./pages/roomMatePreference.php");
 ?>
