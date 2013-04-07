@@ -10,6 +10,7 @@ $index=-1;
 $done=0;
 $no=0;
 $approvalId = mysql_real_escape_string($_POST['approvalId']);
+
 $q= " SELECT capacity,commonName FROM hostels,userPreferences WHERE hostels.commonName = userPreferences.hostelName AND userPreferences.userId = ".$userid;
 $q1=mysql_query($q);
 $info1=mysql_fetch_array($q1);
@@ -79,12 +80,17 @@ $count = $info[0];
 		
 		
 		if($no!=0&&$no<$capacity){
-				if($index=0)
-				$query4="UPDATE finalRoomList SET roomMate".($no+1)."= '".$userid."' WHERE (roomMate1='".$approvalId."' OR roomMate2='".$approvalId."')";
-				else if($index=1)
-                                $query4="UPDATE finalRoomList SET roomMate".($no+1)."= '".$approvalId."' WHERE (roomMate1='".$userid."' OR roomMate2='".$userid."')";
 
-				$query5="UPDATE requests SET accepted ='1' WHERE (roomMateRequestId = '".$userid."' AND userId = '".$approvalId."')";
+
+				if($index==0){
+$query4="UPDATE finalRoomList SET roomMate".($no+1)."= '".$approvalId."' WHERE (roomMate1='".$userid."' OR roomMate2='".$userid."')";
+	
+		}
+				else if($index==1){
+     $query4="UPDATE finalRoomList SET roomMate".($no+1)."= '".$userid."' WHERE (roomMate1='".$approvalId."' OR roomMate2='".$approvalId."')";
+
+}
+$query5="UPDATE requests SET accepted ='1' WHERE (roomMateRequestId = '".$userid."' AND userId = '".$approvalId."')";
 $res5=mysql_query($query5);
 				
 				}
@@ -110,22 +116,25 @@ $res5=mysql_query($query5);
 		 
 		if($count==$capacity-2){
 		
-			$query6="SELECT userId from requests WHERE roomMateRequestId='".$userid."' AND accepted=1";
+			$query6="SELECT * from requests WHERE ((roomMateRequestId='".$userid."' OR userId ='".$userid."') AND accepted='1')";
 		
 			$res6=mysql_query($query6);
 			while($info6=mysql_fetch_array($res6)){
 			 $userIds[$l++]=$info6['userId'];
-				}
+		
+			$userIds[$l++]=$info6['roomMateRequestId'];
+}
 			$userList = implode(',',$userIds);
 		   $query7="UPDATE requests SET accepted =0 WHERE (roomMateRequestId = '".$userid."' AND userId NOT IN(".$userList."))";
+
                    $res7=mysql_query($query7);
-			$query8 = "SELECT * FROM userPreference WHERE userId = '".$userid."'";
+			$query8 = "SELECT * FROM userPreferences WHERE userId = '".$userid."'";
 			$res8=mysql_query($query8);
 			while($info8=mysql_fetch_array($res8)){
 					for($m=1;$m<$capacity;$m++){
 						$finalList[$m-1]=$info8['roomMateId'.$m];
 					}
-		echo $finalList[0];
+
 				}
 			if($capacity==3){
 				$query9="UPDATE userPreferences SET roomMateId2='".$finalList[1]."' WHERE userId = '".$finalList[0]."'";
