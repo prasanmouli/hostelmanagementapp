@@ -1,8 +1,8 @@
 <?php
 include_once("config.lib.php");
-$groupId = 48; 
+$groupId = 1; 
 $capacity;                    
-$counter=0;                         
+                         
 $noOfRoomsPerFloor=10;
 $noOfFloors=3;          
 $queryHostelPref = "SELECT preference FROM finalRoomList WHERE groupId =".$groupId;
@@ -22,10 +22,18 @@ $rand_arr=array_rand($array1,1);
 //print_r($rand_arr);
 unset($array1[$rand_arr]);
 if(ctype_alpha($pref)) {
-
+  $floorNo = floor($rand_arr / $noOfRoomsPerFloor);
+  echo $floorNo;
 $qur1 = "UPDATE finalRoomList SET roomNo=".$rand_arr
 ." WHERE groupId = ".$groupId;
-  mysql_query($qur1);
+$vacancy="INSERT INTO vacancies VALUES  (hostelName.finalRoomList , preference.finalRoomList , roomNo.finalRoomList ,".$floorNo." , 1)";  
+mysql_query($qur1)
+
+
+;
+mysql_query($vacancy);
+
+
 
 }
 
@@ -40,9 +48,10 @@ else {
      
   $rand_arr1=array_rand($array2,1);
   print_r($rand_arr1);
-  //unset($array2[$rand_arr1]);
+  unset($array2[$rand_arr1]);
 $qur2 = "UPDATE finalRoomList SET roomNo=".$rand_arr1
   ." WHERE groupId = ".$groupId;
+//$vacancy="INSERT INTO vacancies VALUES hostelName.finalRoomList , prefe";
 mysql_query($qur2);
 
 }
