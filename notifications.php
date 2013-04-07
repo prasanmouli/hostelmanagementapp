@@ -35,7 +35,7 @@ function requestApproval(roomMateId){
 	   
 	   for(var i=0; i<$('.primaryButtons').length; i++)
 	     listOfRequests += ($('.primaryButtons').map(function() {return this.id;}).toArray()[i]).split("button").pop() + ";";
-	   console.log(listOfRequests);
+
 
 	   $('#confirmation'+roomMateId).empty();
 	   $('#button'+roomMateId).css('display', 'none');
@@ -43,7 +43,17 @@ function requestApproval(roomMateId){
 	   $('#reject1').remove();
 	   //$('#newNotification'+roomMateId).css("bakcground": "white");
 	   $('#approved'+roomMateId).append("Approved!");
-	 }                                        
+	 }
+	else if(data=="You.Cannot.accept.any.more.requests"){
+		 $('#confirmation'+roomMateId).empty();
+           $('#button'+roomMateId).css('display', 'none');
+           $('#accept').remove();
+           $('#reject1').remove();
+           //$('#newNotification'+roomMateId).css("bakcground": "white");
+           $('#approved'+roomMateId).append("You cannot accept any more requests!");
+
+		}
+		                                        
 	 }       
   });
 }
