@@ -10,17 +10,20 @@ $grpsDisplayed = array();
 //$userid = '100000';
 $nameList = array();
 $numberList = array();
+
 if(($searchId!=NULL)&&($searchId!="")){
 $query = "SELECT userId from userDetails WHERE userName LIKE '".$searchId."%'";
 $res = mysql_query($query);
 $query1 = "SELECT userId from userDetails WHERE rollNo LIKE '".$searchId."%'";
 $res1 = mysql_query($query1);
+
 while($info1=mysql_fetch_array($res1)){
 $numberList[$j++]=$info1['userId'];
 }
 $numberMatches = implode(',',$numberList);
- $query2 = "SELECT * from finalRoomList WHERE (roomMate1 IN (".$numberMatches.") OR roomMate2 IN (".$numberMatches.") OR roomMate3 IN (".$numberMatches."))";
-  $res2 = mysql_query($query2);
+$query2 = "SELECT * from finalRoomList WHERE (roomMate1 IN (".$numberMatches.") OR roomMate2 IN (".$numberMatches.") OR roomMate3 IN (".$numberMatches."))";
+$res2 = mysql_query($query2);
+
 
 while($info=mysql_fetch_array($res)){
 $nameList[$j++]=$info['userId'];
@@ -36,9 +39,10 @@ while($info3=mysql_fetch_array($res3)){
       $query4 = "SELECT * from userDetails WHERE userId=".$info3[$i];
       $res4 = mysql_query($query4);
       $info4 = mysql_fetch_array($res4);
-      echo $info4['userName']."<br/><span style='font-size: 13px;'>(".$info4['rollNo'].")</span><br/>";
-     if($info4['rollNo']!="")	
-      echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";
+      if($info4['rollNo']!="")
+       echo $info4['userName']."<br/><span style='font-size: 13px;'>(".$info4['rollNo'].")</span><br/>";
+      /*     if($info4['rollNo']!="")	
+      echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";*/
       $x=1;
         }
     echo "</div>";
@@ -53,9 +57,10 @@ while($info3=mysql_fetch_array($res3)){
       $query4 = "SELECT * from userDetails WHERE userId=".$info2[$i];
       $res4 = mysql_query($query4);
       $info4 = mysql_fetch_array($res4);
-      echo $info4['userName']."<br/><span style='font-size: 13px;'>(".$info4['rollNo'].")</span><br/>";
-       if($info4['rollNo']!="")
-      echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";
+      if($info4['rollNo']!="")
+       echo $info4['userName']."<br/><span style='font-size: 13px;'>(".$info4['rollNo'].")</span><br/>";
+      /* if($info4['rollNo']!="")
+	 echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";*/
       $x=1;
 	}
     echo "</div>";
