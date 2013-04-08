@@ -89,11 +89,11 @@ function requestReject(roomMateId){
 <body>
 <div>
 
-<table id="menuBar">
+<table id="menuBar" align="center">
 <tr> <td> <a href="./"> Hostel Registration </a> </td> <td> Profile </td> <td class="menuActive"> Notifications </td> </tr>
 </table>
 
-<div id="notifications">
+<div id="notifications" style="text-align: left; margin-left: 80px;" align="center">
   <p style="font-size: 14px; color: #E66140; font-weight: bold;"> This is really <span style='text-decoration: underline'>IMPORTANT</span>: Once a request is <span style='text-decoration: underline;'>approved</span>, no further alteration/cancellation is possible. Changes will be final. </p> 
 <ul>
 <?php
@@ -127,9 +127,9 @@ while($info = mysql_fetch_array($res)){
   }
   else if($info['userId']==$userId){
     if($info['accepted']=='1')
-      echo "<li> <strong>".$info2['userName']." </strong> <span style='font-size: 11px'>(".$info2['rollNo'].")</span> has accepted your request.".$requestTime." </li>";
+      echo "<li> <strong>".$info2['userName']."</strong> <span style='font-size: 11px'>(".$info2['rollNo'].")</span> has accepted your request.".$requestTime." </li>";
     else if($info['accepted']=='0')
-      echo "<li> <strong>".$info2['userName']." </strong> <span style='font-size: 11px'>(".$info2['rollNo'].")</span> has rejected your request.".$requestTime."</li>";
+      echo "<li> <strong>".$info2['userName']."</strong> <span style='font-size: 11px'>(".$info2['rollNo'].")</span> has rejected your request.".$requestTime."</li>";
   }
 }
 

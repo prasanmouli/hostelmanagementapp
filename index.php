@@ -473,14 +473,14 @@ button3.addEventListener("click",function(){
 
 </head>
 
-<body onload="AddEventHandler();" >
-<div>
-<table id="menuBar">
+<body onload="AddEventHandler();" align='center' >
+<table id="menuBar" align="center">
 <tr><td class="menuActive"> Hostel Registration</td> <td> Profile </td> <td> <a href="./notifications.php"> Notifications </a> </td> </tr>
 </table>
 <h1> Your Preferences </h1>
 
-<div style="float:left; width: 500px;">
+<div align="center">
+<div style="float:left; width: 500px; margin-top: 50px;">
 <div class="box"> <h2> ROOM MATES </h2>
 <div class="encapsule" style="margin-top: -13px; height: 180px;" align="center" id="roomMate">
 <?php
@@ -488,7 +488,7 @@ button3.addEventListener("click",function(){
 ?>
 </div>
 </div>
-
+<!--
 <div class="box"> <h2> HOSTEL </h2>
 <div class="encapsule" align="center">
 <img class="loaderImg" style="display: none;" src="./images/ajax-loader.gif" type="gif" />
@@ -508,12 +508,11 @@ Registrations for floor or group preference will begin soon!
 <button id="floorSave" style="display:none;"> SAVE </button>
 </div>
 </div>
+-->
 </div>
 
-<div id="searchDiv" style="height: 500px;float :left; width: 700px;">
-
-<div style="float:left; width: 250px;">
-<h2>Student Search </h2>
+<div style="margin: 20px 0 0 90px;float:left;width: 300px; height: 400px; overflow: auto">
+<h2 style='width: 250px'>Student Search </h2>
 <div class="searchInput" align="center">
  <input name="searchq" type="search" id="searchq" size="30"/>
 </div>
@@ -521,8 +520,8 @@ Registrations for floor or group preference will begin soon!
 <div id="search-result" style='height: 100px;'></div>
 </div>
 
-<div style="float:left; width: 250px;">
-<h2>Group Search</h2>
+<div style="margin: 20px 0 0 30px;float:left;width: 310px; height: 400px; overflow: auto;" align="center">
+<h2 style='width: 250px'>Group Search</h2>
 <div class="searchInput" align="center">
    <input name="grp" type="search" id="grp" size="30" />
 </div>
@@ -530,7 +529,6 @@ Registrations for floor or group preference will begin soon!
 <div id="grpsearchresult" style='height: 100px;'></div>
 </div>
 
-</div>
 
 </body>
 </html>

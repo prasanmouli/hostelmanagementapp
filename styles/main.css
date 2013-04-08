@@ -36,7 +36,7 @@
 }
 
 #menuBar td{
-	width: 360px;
+	width: 380px;
 	height: 35px;
 	font-size: 18px;
 	text-align: center;
@@ -275,13 +275,13 @@ input[type=search]:focus{
 	margin: 10px 2px;
 }
 
-#msg{
+#msg, #msg2{
 	font-size: 13px;
 	text-align: center;
 	margin-top: 20px;
 }
 
-#search-result{
+#search-result, #grpsearchresult{
 	margin: 30px;
 	text-align: left;
 }

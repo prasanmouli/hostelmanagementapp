@@ -31,26 +31,30 @@ $nameMatches = implode(',',$nameList);
 $res3=mysql_query($query3);
 while($info3=mysql_fetch_array($res3)){
     echo "Group ID : ".$info3['groupId']."<br/>";
+    echo "<div style='border-bottom: 1px solid blue;'>";
     for($i=1; $i<=3; $i++){
       $query4 = "SELECT * from userDetails WHERE userId=".$info3[$i];
       $res4 = mysql_query($query4);
       $info4 = mysql_fetch_array($res4);
-      echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";
+      echo $info4['userName']."<br/><span style='font-size: 13px;'>(".$info4['rollNo'].")</span><br/>";
     $x=1;
         }
+    echo "</div>";
   }
 
 }
  
   while($info2=mysql_fetch_array($res2)){
     echo "Group ID : ".$info2['groupId']."<br/>";
+    echo "<div style='border-bottom: 1px solid blue;'>";
     for($i=1; $i<=3; $i++){
       $query4 = "SELECT * from userDetails WHERE userId=".$info2[$i];
       $res4 = mysql_query($query4);
       $info4 = mysql_fetch_array($res4);
-      echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";
+      echo $info4['userName']."<br/><span style='font-size: 13px;'>(".$info4['rollNo'].")</span><br/>";
     $x=1;
 	}
+    echo "</div>";
   }
 
 if(!$searchId)

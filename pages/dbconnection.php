@@ -13,7 +13,7 @@ $getname_sql = "SELECT rollNo,userName FROM userDetails WHERE userName LIKE '".$
 $getname1_sql = "SELECT rollNo,userName FROM userDetails WHERE rollNo LIKE '".$searchq."%' AND year = ".$info['year'];
 $getName = mysql_query($getname_sql);
 while ($row = mysql_fetch_array($getName)) {
-echo $row['userName'] ." <span style='font-size: 13px;'>(".$row['rollNo']. ")</span><br/>";
+echo "<div style='border-bottom: 1px solid blue;'>".$row['userName'] ."<br/><span style='font-size: 13px;'>(".$row['rollNo']. ")</span></div>";
 $x=1;
 }
 

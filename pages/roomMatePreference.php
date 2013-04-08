@@ -14,7 +14,7 @@
 	}
 	$form= "Number of persons in a room : ".$capacity."<br/>";
  	for($i=1; $i<=$capacity-1; $i++){
-		$form .= "<div style='float:left; margin-left: 15px;'><p style='float:left;'>RoomMate ".$i.":</p> <input style='float:left;' type='text' id='roomMate".$i."' name='name'/><button style='float:left; margin: 15px 0 0 10px;' id='roomMateSave".$i."'> Send Request </button></div> <br/><br/><br/> <span id='roomMateMessage".$i."' style='font-size: 14px; color: blue;'> </span> <br/>";
+		$form .= "<div style='float:left; margin-left: 5px;'><p style='float:left;'>RoomMate ".$i.":</p> <input style='float:left;' type='text' id='roomMate".$i."' name='name'/><button style='float:left; margin: 15px 0 0 5px;' id='roomMateSave".$i."'> Send Request </button></div> <br/><br/><br/> <span id='roomMateMessage".$i."' style='font-size: 14px; color: blue;'> </span> <br/>";
 }	
 	echo $form;
 ?>
