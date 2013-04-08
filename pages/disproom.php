@@ -35,6 +35,7 @@ while($info3=mysql_fetch_array($res3)){
       $query4 = "SELECT * from userDetails WHERE userId=".$info3[$i];
       $res4 = mysql_query($query4);
       $info4 = mysql_fetch_array($res4);
+	if($info4['rollNo']!="")	
       echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";
     $x=1;
         }
@@ -48,6 +49,7 @@ while($info3=mysql_fetch_array($res3)){
       $query4 = "SELECT * from userDetails WHERE userId=".$info2[$i];
       $res4 = mysql_query($query4);
       $info4 = mysql_fetch_array($res4);
+	        if($info4['rollNo']!="")
       echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";
     $x=1;
 	}
