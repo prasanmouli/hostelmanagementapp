@@ -7,7 +7,7 @@ $checkId = mysql_real_escape_string($_POST['roomMate']);
 if($checkId){
 $query_init = "SELECT userId FROM userDetails WHERE rollNo = '".$checkId."'";
 $info = mysql_fetch_array(mysql_query($query_init));
-if($info['userId'] != $userId){
+if($info['userId'] != $userId&&$info['userId']){
 
 date_default_timezone_set('Asia/Calcutta');
 $mysqltime = date("Y-m-d H:i:s");

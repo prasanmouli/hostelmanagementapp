@@ -287,10 +287,10 @@ if(1){
 	          url: "./pages/roomMateRequest.php",
 		  type: "POST",
 		  data: {'roomMate': roomMate1},
-		  success: function(html){
-		    if(html!="Invalid"){
+		  success: function(data){
+			console.log(data);
+		    if(data!="Invalid"){
 			      $('#roomMate1').attr('disabled','disabled');
-
 			
 			$('#roomMateMessage2').empty();
 		      $('#roomMateMessage1').empty();
@@ -339,7 +339,7 @@ if(1){
 button3.addEventListener("click",function(){
  var roomMate2 = $('#roomMate2').val();
                           
-                
+               
                           
             if(($('#roomMateSave2').html() == " Send Request ")){ 
               if(roomMate2){
@@ -348,9 +348,9 @@ button3.addEventListener("click",function(){
                   url: "./pages/roomMateRequest.php",
                   type: "POST",
                   data: {'roomMate': roomMate2},
-                  success: function(html){
-		
-                    if(html!="Invalid"){
+                  success: function(data){
+	console.log(data);	
+                    if(data!="Invalid"){
                               $('#roomMate2').attr('disabled','disabled');
 
                        
