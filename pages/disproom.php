@@ -36,13 +36,10 @@ while($info3=mysql_fetch_array($res3)){
       $query4 = "SELECT * from userDetails WHERE userId=".$info3[$i];
       $res4 = mysql_query($query4);
       $info4 = mysql_fetch_array($res4);
-<<<<<<< HEAD
       echo $info4['userName']."<br/><span style='font-size: 13px;'>(".$info4['rollNo'].")</span><br/>";
-=======
-	if($info4['rollNo']!="")	
+     if($info4['rollNo']!="")	
       echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";
->>>>>>> 074d60aaf366167db1b6b21f5ce59bcc16d438d0
-    $x=1;
+      $x=1;
         }
     echo "</div>";
   }
@@ -56,13 +53,10 @@ while($info3=mysql_fetch_array($res3)){
       $query4 = "SELECT * from userDetails WHERE userId=".$info2[$i];
       $res4 = mysql_query($query4);
       $info4 = mysql_fetch_array($res4);
-<<<<<<< HEAD
       echo $info4['userName']."<br/><span style='font-size: 13px;'>(".$info4['rollNo'].")</span><br/>";
-=======
-	        if($info4['rollNo']!="")
+       if($info4['rollNo']!="")
       echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";
->>>>>>> 074d60aaf366167db1b6b21f5ce59bcc16d438d0
-    $x=1;
+      $x=1;
 	}
     echo "</div>";
   }

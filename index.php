@@ -413,7 +413,7 @@ button3.addEventListener("click",function(){
                 }
         });*/
 
-        var button2 = document.getElementById("hostelSave");
+	/*        var button2 = document.getElementById("hostelSave");
         button2.addEventListener("click", function(){
 		$('#floor').empty();
 		$('.loaderImg').show();
