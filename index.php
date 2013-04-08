@@ -122,7 +122,8 @@ $(document).ready(function(){
                                                         document.getElementById("roomMateSave2").style.visibility = "visible";
                                                         $('#roomMateMessage2').empty();
 							 }
-                                                         $('#roomMateSave1').attr("disabled",'disabled');       
+							$('#roomMate1').css({"border" : "1px transparent", "text-align" : "center" });	
+                                                        $('#roomMateSave1').attr("disabled",'disabled');       
                                                         $('#roomMateSave1').html("CONFIRMED");  
 							console.log(data);
 
@@ -155,7 +156,8 @@ $(document).ready(function(){
                                                        if(data!=""){
         
 							if(capacity>2){ 
-                                                        $('#roomMateMessage2').empty();
+                                                        $('#roomMate2').css({"border" : "1px transparent","text-align":"center"});  
+							$('#roomMateMessage2').empty();
                                                         $('#roomMateSave2').attr('disabled', 'disabled');
 							$('#roomMateSave2').html("CONFIRMED");
 							 }                                                                                                                 }
@@ -312,7 +314,7 @@ if(1){
                       $('#roomMateMessage1').append("Enter Roll Number");
 		}
 	}
-	    else{
+	    else if($('#roomMateSave1').html() == " Cancel Request "){
 	      $.ajax({
 		    url: "./pages/roomMateCancelRequest.php",
 		    type: "POST", 
@@ -470,7 +472,50 @@ button3.addEventListener("click",function(){
     }
 	
 </script>
+<script type="text/javascript">
+  $.ajax({
+	url :'./pages/findHostel.php',
+	type:'get',
+	success:function(data){
+      	hostelArray=data.split(";");
+	for(i=0;i<hostelArray.length-1;i++){
+$('#hostelDropDown').append("<option id='"+hostelArray[i]+"' value='"+hostelArray[i]+"' onclick=hostelRooms('"+hostelArray[i]+"')>"+hostelArray[i]+"</option>");
 
+		}
+	}
+});
+
+function addRoom(userId,roomNo){
+	$.ajax({
+	url : './pages/addToRoom.php',
+	type : 'post',
+	data : {'userId': userId , 'room' : roomNo},
+	success : function(data){
+		console.log(data);
+		}
+	});
+
+}  
+function hostelRooms(hostelName){
+    
+if(hostelName!='')
+  $.ajax({
+    url : './pages/displayRooms.php',
+	type : 'post' , 
+	data : {'hostelName' : hostelName},
+	success : function(data){
+	$('#selectRoom').empty();
+	 $('#selectRoom').append(data);
+	}
+    });
+else
+ $('#selectRoom').empty();
+
+}
+
+
+
+</script>
 </head>
 
 <body onload="AddEventHandler();" align='center' >
@@ -528,7 +573,11 @@ Registrations for floor or group preference will begin soon!
 <div id="msg2">Type something into the input field</div>
 <div id="grpsearchresult" style='height: 100px;'></div>
 </div>
-
-
+</div>
+<div style="margin-top: 0px;" align="center">
+<div> Hostel : <select id="hostelDropDown"><option value="" onclick=hostelRooms('')></option></select> </div>
+<div id="selectRoom" style='width: 1000px' class="selectRoom">
+</div>
+</div>
 </body>
 </html>

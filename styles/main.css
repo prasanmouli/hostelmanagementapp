@@ -337,3 +337,18 @@ a, a:visited {
     color: #04a4cc;
     font-weight: bold;
 }
+.roomNo{
+	float: left;
+	margin: 1px; 
+	width: 40px; 
+	border: 1px solid black;
+        border-radius: 2px;
+        padding: 4px;
+	cursor: pointer;
+	background-color: #0972A5;/*#034b6e;*/
+	color: white;
+}
+
+.roomNo:hover{
+    background-color: #034b6e;
+}
