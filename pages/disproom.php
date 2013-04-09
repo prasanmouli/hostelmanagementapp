@@ -45,6 +45,11 @@ while($info3=mysql_fetch_array($res3)){
       echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";*/
       $x=1;
         }
+    if(gettype($info3['roomNo'])!='NULL'){
+	$hostel = $info3['hostelName'].$info3['roomNo'][0].$info3['roomNo'][1];
+	echo " Hostel : ".$hostel."<br/>";
+	echo " Room : ".str_replace($info3['roomNo'][0].$info3['roomNo'][1],"",$info3['roomNo'])."<br/>";
+	}
     echo "</div>";
   }
 
@@ -63,6 +68,12 @@ while($info3=mysql_fetch_array($res3)){
 	 echo $info4['userName']."(".$info4['rollNo'].")"."<br/>";*/
       $x=1;
 	}
+	    if(gettype($info2['roomNo'])!='NULL'){
+        $hostel = $info2['hostelName'].$info2['roomNo'][0].$info2['roomNo'][1];
+        echo " Hostel : ".$hostel."<br/>";
+        echo " Room : ".str_replace($info2['roomNo'][0].$info2['roomNo'][1],"",$info2['roomNo'])."<br/>";
+        }
+
     echo "</div>";
   }
 

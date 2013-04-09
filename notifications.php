@@ -115,6 +115,7 @@ while($info = mysql_fetch_array($res)){
 
   $requestRollNo = $info1['rollNo'];
   //$requestTime = $info['requestTime'];
+ 
   if($info['roomMateRequestId']==$userId){
   if($info['accepted']=='1')
     echo "<li> <div> <div style='margin-right: 10px;float:left;'><strong>".$info1['userName']." </strong> <span style='font-size: 11px'>(".$info1['rollNo'].")</span> wanted to be your room mate.".$requestTime."</div> <span class='approved' id='approved".$info['userId']."'> Approved! </span> </li>";

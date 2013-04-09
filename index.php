@@ -21,7 +21,7 @@ $(document).ready(function(){
       success: function(data){
 	  capacity = data;
 	  if(capacity==2){
-	    $('.encapsule').css({"height":"100px"});
+	    $('.encapsule').css({"height":"150px"});
 	  }
       },
       complete: function(){  	  
@@ -473,29 +473,68 @@ button3.addEventListener("click",function(){
 	
 </script>
 <script type="text/javascript">
-  $.ajax({
-	url :'./pages/findHostel.php',
-	type:'get',
-	success:function(data){
-      	hostelArray=data.split(";");
-	for(i=0;i<hostelArray.length-1;i++){
-$('#hostelDropDown').append("<option id='"+hostelArray[i]+"' value='"+hostelArray[i]+"' onclick=hostelRooms('"+hostelArray[i]+"')>"+hostelArray[i]+"</option>");
-
-		}
-	}
-});
-
-function addRoom(userId,roomNo){
-	$.ajax({
-	url : './pages/addToRoom.php',
-	type : 'post',
-	data : {'userId': userId , 'room' : roomNo},
+$.ajax({
+	url :'./pages/checkRoomAllotment.php',
+	type : 'get',
 	success : function(data){
-		console.log(data);
+  		if(data==""){
+			$.ajax({
+				url :'./pages/findHostel.php',
+				type:'get',
+				success:function(data){
+					      	hostelArray=data.split(";");
+						for(i=0;i<hostelArray.length-1;i++){
+							$('#hostelDropDown').append("<option id='"+hostelArray[i]+"' value='"+hostelArray[i]+"' onclick=hostelRooms('"+hostelArray[i]+"')>"+hostelArray[i]+"</option>");
+
+								}	
+						}
+					});
+				}
+		else{
+			
+			 $('#roomAllotment').empty();
+                                $('#roomMate').append("Your Room No. : "+data); 
+		 
+			}
 		}
 	});
+function addRoom(userId,roomNo){
+	var confirmation = confirm("Are You Sure You want to Select This Room?");
+	if(confirmation==true)
+	$.ajax({
+		url : './pages/addToRoom.php',
+		type : 'post',
+		data : {'userId': userId , 'room' : roomNo},
+		success : function(data){
+			console.log(data);
+				if(data=="Taken"){
+					alert("The room has already been chosen");
+					}
+				else{
+					alert("Success");
+					$('#roomAllotment').empty();
+                                $('#roomMate').append("Your Room No. : "+data); 
 
-}  
+					}	
+					
+			}
+		});
+
+	}
+function showRoom(roomNo){
+	 $.ajax({
+                url : './pages/showRoom.php',
+                type : 'post',
+                data : {'room' : roomNo},
+                success : function(data){
+                        console.log(data);
+                                 alert(data);
+                                        }       
+                                        
+                        
+                });
+
+	}  
 function hostelRooms(hostelName){
     
 if(hostelName!='')
@@ -524,7 +563,7 @@ else
 </table>
 <h1> Your Preferences </h1>
 
-<div align="center">
+	<div align="center">
 <div style="float:left; width: 500px; margin-top: 50px;">
 <div class="box"> <h2> ROOM MATES </h2>
 <div class="encapsule" style="margin-top: -13px; height: 180px;" align="center" id="roomMate">
@@ -574,8 +613,8 @@ Registrations for floor or group preference will begin soon!
 <div id="grpsearchresult" style='height: 100px;'></div>
 </div>
 </div>
-<div style="margin-top: 0px;" align="center">
-<div> Hostel : <select id="hostelDropDown"><option value="" onclick=hostelRooms('')></option></select> </div>
+<div id='roomAllotment' style="margin-top: 0px;" align="center">
+<div > Hostel : <select id="hostelDropDown"><option value="" onclick=hostelRooms('')></option></select> </div>
 <div id="selectRoom" style='width: 1000px' class="selectRoom">
 </div>
 </div>

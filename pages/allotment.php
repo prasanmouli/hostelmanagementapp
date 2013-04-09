@@ -2,7 +2,6 @@
 include_once("config.lib.php");
 $groupId = 1; 
 $capacity;                    
-                         
 $noOfRoomsPerFloor=10;
 $noOfFloors=3;          
 $queryHostelPref = "SELECT preference FROM finalRoomList WHERE groupId =".$groupId;
